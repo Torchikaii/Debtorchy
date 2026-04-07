@@ -18,6 +18,10 @@ bash ./ubuntu-utility/apps/pyenv.sh
 bash ./ubuntu-utility/apps/tmux.sh
 bash ./ubuntu-utility/apps/tree.sh
 bash ./ubuntu-utility/apps/python.sh
+bash ./ubuntu-utility/apps/fd.sh
+bash ./ubuntu-utility/apps/fzf.sh  # needs fd.sh
+bash ./ubuntu-utility/apps/ripgrep.sh
+
 
 # services
 bash ./ubuntu-utility/services/ssh.sh
