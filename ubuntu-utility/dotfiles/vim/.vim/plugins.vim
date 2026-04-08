@@ -12,9 +12,11 @@ function! s:ensure(repo)
   endif
 
   execute 'set runtimepath+=' . fnameescape(path)
+
 endfunction
 
 call s:ensure('ghifarit53/tokyonight-vim')
 call s:ensure('junegunn/fzf')
 call s:ensure('junegunn/fzf.vim')
 call s:ensure('itchyny/lightline.vim')
+call s:ensure('yegappan/lsp')
