@@ -1,11 +1,14 @@
+set runtimepath+=$HOME/.vim/plugged/lsp
+source $HOME/.vim/plugged/lsp/plugin/lsp.vim
+
 let lspOpts = #{autoHighlightDiags: v:true}
 call LspOptionsSet(lspOpts)
 
 let lspServers = [
       \ #{
-      \   name: 'rust-analyzer',
-      \   filetype: ['rust'],
-      \   path: 'rust-analyzer',
+      \   name: 'pylsp',
+      \   filetype: ['python'],
+      \   path: 'pylsp',
       \   args: []
       \ }
       \ ]
