@@ -18,6 +18,10 @@ bash ./ubuntu-utility/apps/pyenv.sh
 bash ./ubuntu-utility/apps/tmux.sh
 bash ./ubuntu-utility/apps/tree.sh
 bash ./ubuntu-utility/apps/python.sh
+bash ./ubuntu-utility/apps/fd.sh
+bash ./ubuntu-utility/apps/fzf.sh  # needs fd.sh
+bash ./ubuntu-utility/apps/ripgrep.sh
+
 
 # services
 bash ./ubuntu-utility/services/ssh.sh
@@ -26,3 +30,7 @@ bash ./ubuntu-utility/services/cifs-utils.sh
 # system configuration
 bash ./ubuntu-utility/dotfiles.sh
 bash ./ubuntu-utility/keyboard.sh
+
+# python packages
+# needs python.sh
+bash ./ubuntu-utility/python/python-packages.sh

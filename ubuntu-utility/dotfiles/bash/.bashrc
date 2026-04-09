@@ -118,3 +118,4 @@ WORK_DIR="${BLUE}\w${RESET}"
 GIT_PART="${YELLOW}\$(__git_ps1 \" (%s)\")${RESET}"
 
 PS1="${USER_HOST}${GIT_PART}\n${WORK_DIR} $ "
+. "$HOME/.cargo/env"
