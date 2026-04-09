@@ -4,7 +4,7 @@ source "$(dirname "$0")/../commands/logging.sh"
 
 log "fd.sh running"
 
-if dpkg -s fd >/dev/null 2>&1; then
+if dpkg -s fd-find >/dev/null 2>&1; then
     log "fd already installed, skipping"
     exit 0
 fi
