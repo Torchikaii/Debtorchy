@@ -11,6 +11,6 @@ fi
 
 log "Installing fd"
 sudo apt update >/dev/null 2>&1
-sudo apt install -y -qq fd >/dev/null 2>&1
+sudo apt install -y -qq fd-find >/dev/null 2>&1
 
 log "fd.sh completed"
