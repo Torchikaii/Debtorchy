@@ -23,6 +23,10 @@ bash ./ubuntu-utility/apps/fzf.sh  # needs fd.sh
 bash ./ubuntu-utility/apps/ripgrep.sh
 
 
+# desktop
+bash ./ubuntu-utility/desktop/i3.sh
+
+
 # services
 bash ./ubuntu-utility/services/ssh.sh
 bash ./ubuntu-utility/services/cifs-utils.sh
