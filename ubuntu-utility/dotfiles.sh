@@ -19,4 +19,9 @@ ln -s ~/repos/utils/ubuntu-utility/dotfiles/vim/.vimrc ~/.vimrc
 rm -rf ~/.vim
 ln -s ~/repos/utils/ubuntu-utility/dotfiles/vim/.vim ~/.vim
 
+# i3
+mkdir -p ~/.config/i3
+rm -f ~/.config/i3/config
+ln -s ~/repos/utils/ubuntu-utility/dotfiles/i3/config ~/.config/i3/config
+
 log "dotfiles.sh completed"
