@@ -24,4 +24,9 @@ mkdir -p ~/.config/i3
 rm -f ~/.config/i3/config
 ln -s ~/repos/utils/ubuntu-utility/dotfiles/i3/config ~/.config/i3/config
 
+# polybar
+mkdir -p ~/.config/polybar
+rm -f ~/.config/polybar/config
+ln -s ~/repos/utils/ubuntu-utility/dotfiles/polybar/config ~/.config/polybar/config
+
 log "dotfiles.sh completed"
