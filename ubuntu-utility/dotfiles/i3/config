@@ -49,7 +49,7 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec alacritty
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -73,6 +73,16 @@ bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
+
+# Alt+Tab - Windows-like window switching
+#bindsym Mod1+Tab mode "alt-tab"
+
+#mode "alt-tab" {
+#    bindsym Tab focus next
+#    bindsym Shift+Tab focus prev
+#    bindsym Escape mode "default"
+#    bindsym Return mode "default"
+#}
 
 # move focused window
 bindsym $mod+Shift+j move left
