@@ -104,7 +104,7 @@ alias utils='cd ~/repos/utils'
 alias notes='cd ~/repos/Notes'
 alias path='echo $PATH | tr ":" "\n"'
 alias clear-path='export PATH=$(echo "$PATH" | tr ":" "\n" | awk "!seen[$0]++" | tr "\n" ":" | sed "s/:$//")'
-
+alias brave='brave-browser'
 
 # Bash prompt
 RESET="\[\e[0m\]"
@@ -118,4 +118,3 @@ WORK_DIR="${BLUE}\w${RESET}"
 GIT_PART="${YELLOW}\$(__git_ps1 \" (%s)\")${RESET}"
 
 PS1="${USER_HOST}${GIT_PART}\n${WORK_DIR} $ "
-. "$HOME/.cargo/env"

@@ -11,6 +11,6 @@ fi
 
 log "Installing i3 and related packages"
 sudo apt update >/dev/null 2>&1
-sudo apt install -y -qq i3 feh thunar
+sudo apt install -y -qq i3
 
 log "i3.sh completed"

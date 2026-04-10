@@ -25,6 +25,7 @@ bash ./ubuntu-utility/apps/ripgrep.sh
 
 # desktop
 bash ./ubuntu-utility/desktop/i3.sh
+bash ./ubuntu-utility/desktop/feh.sh
 
 
 # services
