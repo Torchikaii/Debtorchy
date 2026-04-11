@@ -28,6 +28,7 @@ bash ./ubuntu-utility/desktop/font-awesome.sh
 bash ./ubuntu-utility/desktop/i3.sh
 bash ./ubuntu-utility/desktop/feh.sh
 bash ./ubuntu-utility/desktop/polybar.sh # needs font-awesome.sh
+bash ./ubuntu-utility/desktop/picom.sh
 
 # services
 bash ./ubuntu-utility/services/ssh.sh

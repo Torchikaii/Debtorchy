@@ -29,6 +29,9 @@ exec --no-startup-id dex --autostart --environment i3
 # set wallpaper
 exec --no-startup-id feh --bg-fill ~/repos/utils/ubuntu-utility/assets/backgrounds/wallpaper.jpg
 
+# start picom (compositor)
+exec_always --no-startup-id picom --config /home/pc/repos/utils/ubuntu-utility/dotfiles/picom/picom.conf
+
 # start polybar
 exec --no-startup-id polybar main
 
@@ -53,6 +56,17 @@ floating_modifier $mod
 # move tiling windows via drag & drop by left-clicking into the title bar,
 # or left-clicking anywhere into the window while holding the floating modifier.
 tiling_drag modifier titlebar
+
+# window borders
+default_border pixel 2
+default_floating_border pixel 1
+hide_edge_borders none
+
+# window border colors (gruvbox theme)
+client.focused          #7daea3 #7daea3 #282828
+client.focused_inactive #504945 #282828 #d4be98
+client.unfocused        #504945 #282828 #504945
+client.urgent           #ea6962 #ea6962 #282828
 
 # start a terminal
 bindsym $mod+Return exec alacritty
