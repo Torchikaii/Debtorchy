@@ -102,9 +102,12 @@ eval "$(pyenv virtualenv-init -)"
 # User-defined aliases
 alias utils='cd ~/repos/utils'
 alias notes='cd ~/repos/Notes'
+alias server='. ~/repos/utils/ubuntu-utility/commands/server.sh'
 alias path='echo $PATH | tr ":" "\n"'
 alias clear-path='export PATH=$(echo "$PATH" | tr ":" "\n" | awk "!seen[$0]++" | tr "\n" ":" | sed "s/:$//")'
 alias brave='brave-browser'
+alias oc='opencode'
+alias st='~/STM32CubeMX/STM32CubeMX'
 
 # Bash prompt
 RESET="\[\e[0m\]"
