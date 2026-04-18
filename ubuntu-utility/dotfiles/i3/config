@@ -32,6 +32,9 @@ exec --no-startup-id feh --bg-fill ~/repos/utils/ubuntu-utility/assets/backgroun
 # start picom (compositor)
 exec_always --no-startup-id picom --config /home/pc/repos/utils/ubuntu-utility/dotfiles/picom/picom.conf
 
+# keyboard layout switcher (Alt+Shift to toggle us/lt/gr)
+exec_always --no-startup-id setxkbmap -layout us,lt,gr -option grp:alt_shift_toggle
+
 # start polybar
 exec --no-startup-id polybar main
 
