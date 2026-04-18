@@ -58,15 +58,16 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # window borders
+smart_borders on
 default_border pixel 2
 default_floating_border pixel 1
 hide_edge_borders none
 
 # window border colors (gruvbox theme)
 client.focused          #7daea3 #7daea3 #282828
-client.focused_inactive #504945 #282828 #d4be98
-client.unfocused        #504945 #282828 #504945
-client.urgent           #ea6962 #ea6962 #282828
+client.focused_inactive #7daea3 #282828 #d4be98
+client.unfocused        #504945 #282828 #d4be98
+client.urgent           #ea6962 #282828 #282828
 
 # start a terminal
 bindsym $mod+Return exec alacritty
