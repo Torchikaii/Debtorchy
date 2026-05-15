@@ -103,6 +103,7 @@ eval "$(pyenv virtualenv-init -)"
 alias utils='cd ~/repos/utils'
 alias notes='cd ~/repos/Notes'
 alias server='. ~/repos/utils/ubuntu-utility/commands/server.sh'
+alias sync-s='. ~/repos/utils/ubuntu-utility/commands/sync-s.sh'
 alias path='echo $PATH | tr ":" "\n"'
 alias clear-path='export PATH=$(echo "$PATH" | tr ":" "\n" | awk "!seen[$0]++" | tr "\n" ":" | sed "s/:$//")'
 alias brave='brave-browser'

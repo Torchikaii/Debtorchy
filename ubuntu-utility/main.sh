@@ -21,7 +21,7 @@ bash ./ubuntu-utility/apps/python.sh
 bash ./ubuntu-utility/apps/fd.sh
 bash ./ubuntu-utility/apps/fzf.sh  # needs fd.sh
 bash ./ubuntu-utility/apps/ripgrep.sh
-
+bash ./ubuntu-utility/apps/rsync.sh
 
 # desktop
 bash ./ubuntu-utility/desktop/font-awesome.sh
