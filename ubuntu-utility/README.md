@@ -22,6 +22,10 @@ ubuntu-utility/
 │   ├── ssh.sh        # ssh config
 │   ├── cifs-utils.sh # cifs-utils
 │   └── nfs-common.sh # nfs-common
+├── commands/
+│   ├── logging.sh    # log helper
+│   ├── server.sh     # mount NAS via SMB
+│   └── sync-s.sh     # sync file(s) from NAS to ~/Desktop
 └── dotfiles/         # config files (symlinked to ~/.config)
     ├── bash/.bashrc
     ├── vim/.vimrc
@@ -35,6 +39,7 @@ ubuntu-utility/
             └── miasma.toml
 ```
 
+
 Run `main.sh` on fresh Ubuntu. All scripts safe to re-run.
 
 **Alacritty setup:**
@@ -44,3 +49,5 @@ Run `main.sh` on fresh Ubuntu. All scripts safe to re-run.
 - Will fail if utils is not at `~/repos/utils`
 
 **cifs-utils.sh:** Installs cifs-utils and smbclient.
+
+**sync-s:** Pulls `<file>` from NAS to `~/Desktop/`. Mounts NAS automatically if needed. Alias: `sync-s`.

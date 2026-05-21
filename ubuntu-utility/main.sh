@@ -21,7 +21,14 @@ bash ./ubuntu-utility/apps/python.sh
 bash ./ubuntu-utility/apps/fd.sh
 bash ./ubuntu-utility/apps/fzf.sh  # needs fd.sh
 bash ./ubuntu-utility/apps/ripgrep.sh
+bash ./ubuntu-utility/apps/rsync.sh
 
+# desktop
+bash ./ubuntu-utility/desktop/font-awesome.sh
+bash ./ubuntu-utility/desktop/i3.sh
+bash ./ubuntu-utility/desktop/feh.sh
+bash ./ubuntu-utility/desktop/polybar.sh # needs font-awesome.sh
+bash ./ubuntu-utility/desktop/picom.sh
 
 # services
 bash ./ubuntu-utility/services/ssh.sh

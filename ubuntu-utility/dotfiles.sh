@@ -19,4 +19,19 @@ ln -s ~/repos/utils/ubuntu-utility/dotfiles/vim/.vimrc ~/.vimrc
 rm -rf ~/.vim
 ln -s ~/repos/utils/ubuntu-utility/dotfiles/vim/.vim ~/.vim
 
+# i3
+mkdir -p ~/.config/i3
+rm -f ~/.config/i3/config
+ln -s ~/repos/utils/ubuntu-utility/dotfiles/i3/config ~/.config/i3/config
+
+# polybar
+mkdir -p ~/.config/polybar
+rm -f ~/.config/polybar/config
+ln -s ~/repos/utils/ubuntu-utility/dotfiles/polybar/config ~/.config/polybar/config
+
+# picom
+mkdir -p ~/.config/picom
+rm -f ~/.config/picom/picom.conf
+ln -s ~/repos/utils/ubuntu-utility/dotfiles/picom/picom.conf ~/.config/picom/picom.conf
+
 log "dotfiles.sh completed"

@@ -1,5 +1,9 @@
 #!/bin/bash
 
+set -euo pipefail
+
+export DEBIAN_FRONTEND=noninteractive
+
 source "$(dirname "$0")/../commands/logging.sh"
 
 log "libreoffice.sh running"
