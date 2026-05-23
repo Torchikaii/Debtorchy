@@ -34,4 +34,13 @@ mkdir -p ~/.config/picom
 rm -f ~/.config/picom/picom.conf
 ln -s ~/repos/utils/ubuntu-utility/dotfiles/picom/picom.conf ~/.config/picom/picom.conf
 
+# opencode
+mkdir -p ~/.config/opencode
+rm -f ~/.config/opencode/opencode.json
+ln -s ~/repos/utils/ubuntu-utility/dotfiles/opencode/opencode.json ~/.config/opencode/opencode.json
+rm -f ~/.config/opencode/tui.json
+ln -s ~/repos/utils/ubuntu-utility/dotfiles/opencode/tui.json ~/.config/opencode/tui.json
+rm -rf ~/.config/opencode/themes
+ln -s ~/repos/utils/ubuntu-utility/dotfiles/opencode/themes ~/.config/opencode/themes
+
 log "dotfiles.sh completed"

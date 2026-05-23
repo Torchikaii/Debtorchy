@@ -1,0 +1,12 @@
+{
+  "$schema": "https://opencode.ai/tui.json",
+  "theme": "gruvbox",
+  "mouse": true,
+  "scroll_speed": 3,
+  "attention": {
+    "enabled": true,
+    "notifications": true,
+    "sound": false
+  },
+  "keybinds": {}
+}
