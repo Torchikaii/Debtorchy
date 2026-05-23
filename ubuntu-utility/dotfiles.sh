@@ -40,5 +40,7 @@ rm -f ~/.config/opencode/opencode.json
 ln -s ~/repos/utils/ubuntu-utility/dotfiles/opencode/opencode.json ~/.config/opencode/opencode.json
 rm -f ~/.config/opencode/tui.json
 ln -s ~/repos/utils/ubuntu-utility/dotfiles/opencode/tui.json ~/.config/opencode/tui.json
+rm -rf ~/.config/opencode/themes
+ln -s ~/repos/utils/ubuntu-utility/dotfiles/opencode/themes ~/.config/opencode/themes
 
 log "dotfiles.sh completed"
