@@ -2,6 +2,9 @@
 
 set -e
 
+# keep sudo prompt in front
+sudo date
+
 # apps
 bash ./ubuntu-utility/apps/docker.sh
 bash ./ubuntu-utility/apps/terraform.sh
@@ -22,6 +25,7 @@ bash ./ubuntu-utility/apps/fd.sh
 bash ./ubuntu-utility/apps/fzf.sh  # needs fd.sh
 bash ./ubuntu-utility/apps/ripgrep.sh
 bash ./ubuntu-utility/apps/rsync.sh
+bash ./ubuntu-utility/apps/starship.sh
 
 # desktop
 bash ./ubuntu-utility/desktop/font-awesome.sh
@@ -37,6 +41,7 @@ bash ./ubuntu-utility/services/cifs-utils.sh
 # system configuration
 bash ./ubuntu-utility/dotfiles.sh
 bash ./ubuntu-utility/keyboard.sh
+bash ./ubuntu-utility/fonts.sh
 
 # python packages
 # needs python.sh
