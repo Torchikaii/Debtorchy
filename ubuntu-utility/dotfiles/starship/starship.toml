@@ -1,23 +1,27 @@
 format = """
-[](#1A3B1E)$python$git_branch[](fg:#4A7C3F)
+[](#1A3B1E)\
+$python$\
+git_branch\
+[](fg:#1A3B1E)
 [](#1A3B1E)\
 [](bg:#2D5A2B fg:#1A3B1E)\
 $directory\
 [](fg:#2D5A2B bg:#5E9E52)\
 [](fg:#5E9E52 bg:#7EC06E)\
 [](fg:#7EC06E bg:#4A7C3F)\
-[](fg:#4A7C3F)\
+[](fg:#4A7C3F) \
 """
 
 [directory]
 style = "bg:#2D5A2B"
 format = "[ $path ]($style)"
-truncation_length = 3
-truncation_symbol = "…/"
+truncate_to_repo = false
+#truncation_length = 120 
+#truncation_symbol = "…/"
 
 [git_branch]
 symbol = ""
-style = "bg:#3D7A38"
+style = "bg:#1A3B1E"
 format = '[ $symbol $branch ]($style)'
 
 [python]
