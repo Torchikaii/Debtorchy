@@ -1,8 +1,6 @@
 format = """
-[](#1A3B1E)\
-$python$\
-git_branch\
-[](fg:#1A3B1E)
+$python\
+$git_branch
 [](#1A3B1E)\
 [](bg:#2D5A2B fg:#1A3B1E)\
 $directory\
@@ -22,9 +20,12 @@ truncate_to_repo = false
 [git_branch]
 symbol = ""
 style = "bg:#1A3B1E"
-format = '[ $symbol $branch ]($style)'
+format = '[](#1A3B1E)[ $symbol $branch ]($style)[](fg:#1A3B1E)'
 
 [python]
 style = "bg:#1A3B1E"
-format = '[(\($virtualenv\))]($style)'
-
+format = '[](#1A3B1E)[(\($virtualenv\))]($style)[](fg:#1A3B1E)'
+detect_extensions = []
+detect_files = []
+detect_folders = []
+detect_env_vars = ["VIRTUAL_ENV"]
