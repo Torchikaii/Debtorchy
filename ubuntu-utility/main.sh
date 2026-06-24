@@ -26,6 +26,10 @@ bash ./ubuntu-utility/apps/fzf.sh  # needs fd.sh
 bash ./ubuntu-utility/apps/ripgrep.sh
 bash ./ubuntu-utility/apps/rsync.sh
 bash ./ubuntu-utility/apps/starship.sh
+bash ./ubuntu-utility/apps/pipewire.sh
+bash ./ubuntu-utility/apps/pipewire-pulse.sh
+bash ./ubuntu-utility/apps/wireplumber.sh
+bash ./ubuntu-utility/apps/alsa-utils.sh
 
 # desktop
 bash ./ubuntu-utility/desktop/font-awesome.sh
