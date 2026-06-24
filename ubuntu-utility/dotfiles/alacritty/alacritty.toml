@@ -7,7 +7,17 @@ import = ["/home/pc/repos/utils/ubuntu-utility/dotfiles/alacritty/themes/gruvbox
 opacity = 0.95
 
 [font]
+normal.family = "Code New Roman Nerd Font"
+normal.style = "Regular"
 size = 12.0
+
+[cursor]
+style = { shape = "Underline", blinking = "On" }
+vi_mode_style = { shape = "Underline", blinking = "Never" }
+unfocused_hollow = false
+blink_interval = 700
+blink_timeout = 0
+thickness = 0.2
 
 [keyboard]
 bindings = [

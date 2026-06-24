@@ -1,0 +1,31 @@
+format = """
+$python\
+$git_branch
+[](#1A3B1E)\
+[](bg:#2D5A2B fg:#1A3B1E)\
+$directory\
+[](fg:#2D5A2B bg:#386E35)\
+[](fg:#386E35 bg:#40763C)\
+[](fg:#40763C bg:#2D5A2B)\
+[](fg:#2D5A2B) \
+"""
+
+[directory]
+style = "bg:#2D5A2B"
+format = "[ $path ]($style)"
+truncate_to_repo = false
+#truncation_length = 120 
+#truncation_symbol = "…/"
+
+[git_branch]
+symbol = ""
+style = "bg:#1A3B1E"
+format = '[](#1A3B1E)[ $symbol $branch ]($style)[](fg:#1A3B1E)'
+
+[python]
+style = "bg:#1A3B1E"
+format = '[](#1A3B1E)[($virtualenv)]($style)[](fg:#1A3B1E) '
+detect_extensions = []
+detect_files = []
+detect_folders = []
+detect_env_vars = ["VIRTUAL_ENV"]

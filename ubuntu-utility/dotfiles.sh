@@ -43,4 +43,8 @@ ln -s ~/repos/utils/ubuntu-utility/dotfiles/opencode/tui.json ~/.config/opencode
 rm -rf ~/.config/opencode/themes
 ln -s ~/repos/utils/ubuntu-utility/dotfiles/opencode/themes ~/.config/opencode/themes
 
+# starship
+rm -f ~/.config/starship.toml
+ln -s ~/repos/utils/ubuntu-utility/dotfiles/starship/starship.toml ~/.config/starship.toml
+
 log "dotfiles.sh completed"
