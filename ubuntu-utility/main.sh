@@ -58,7 +58,6 @@ bash ./ubuntu-utility/apps/p7zip.sh
 
 # system configuration
 bash ./ubuntu-utility/dotfiles.sh
-bash ./ubuntu-utility/keyboard.sh
 bash ./ubuntu-utility/fonts.sh
 
 # python packages
