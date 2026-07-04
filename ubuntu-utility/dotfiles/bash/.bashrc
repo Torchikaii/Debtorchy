@@ -103,10 +103,10 @@ eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
 # User-defined aliases
-alias utils='cd ~/repos/utils'
+alias utils='cd ~/repos/Debtorchy'
 alias notes='cd ~/repos/Notes'
-alias server='. ~/repos/utils/ubuntu-utility/commands/server.sh'
-alias sync-s='. ~/repos/utils/ubuntu-utility/commands/sync-s.sh'
+alias server='. ~/repos/Debtorchy/ubuntu-utility/commands/server.sh'
+alias sync-s='. ~/repos/Debtorchy/ubuntu-utility/commands/sync-s.sh'
 alias path='echo $PATH | tr ":" "\n"'
 alias clear-path='export PATH=$(echo "$PATH" | tr ":" "\n" | awk "!seen[$0]++" | tr "\n" ":" | sed "s/:$//")'
 alias brave='brave-browser'

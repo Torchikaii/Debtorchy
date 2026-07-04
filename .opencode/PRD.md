@@ -1,4 +1,4 @@
-# Product Requirements Document: Utils Monorepo
+# Product Requirements Document: Debtorchy
 
 **Version:** 1.0  
 **Last Updated:** 2026-03-25
@@ -7,7 +7,7 @@
 
 ## 1. Executive Summary
 
-This repository serves as a personal utility toolkit ("utils"), consolidating small but essential scripts and configurations that support daily development workflows. Rather than maintaining numerous separate repositories for small utilities, this monorepo approach keeps related tools organized, version-controlled, and easily deployable across systems.
+This repository serves as a personal utility toolkit ("Debtorchy"), consolidating small but essential scripts and configurations that support daily development workflows. Rather than maintaining numerous separate repositories for small utilities, this monorepo approach keeps related tools organized, version-controlled, and easily deployable across systems.
 
 The project addresses the practical reality that developers accumulate small scripts, configurations, and tools over time. By centralizing these utilities, the repository enables quick environment reconstruction, workflow automation, and knowledge preservation.
 
@@ -136,7 +136,7 @@ Build and maintain a personal utility ecosystem that eliminates repetitive tasks
 ### Directory Structure
 
 ```
-utils/
+Debtorchy/
 ├── .opencode/           # AI development workflow templates
 │   ├── commands/        # Slash commands for OpenCode
 │   ├── progress/        # Human-tracked task completion
@@ -206,7 +206,7 @@ utils/
 
 - **Dotfiles** stored in `ubuntu-utility/dotfiles/`
 - **Symlinks** created to `~/.config`
-- **No hardcoded paths** — uses `~/repos/utils` convention
+- **No hardcoded paths** — uses `~/repos/Debtorchy` convention
 
 ### Security Scope
 
@@ -297,7 +297,7 @@ Not applicable — this is a collection of standalone utilities, not an API-driv
 
 | Risk | Impact | Likelihood | Mitigation |
 |------|--------|------------|------------|
-| **Path dependencies** — Scripts assume `~/repos/utils` | Medium | High | Document path requirement; add path detection |
+| **Path dependencies** — Scripts assume `~/repos/Debtorchy` | Medium | High | Document path requirement; add path detection |
 | **Ubuntu version drift** — APIs change between releases | Medium | Medium | Test on LTS releases; use version checks |
 | **BOM format changes** — Altium export format varies | Low | Medium | Add format detection; version comments |
 | **Context engineering template bloat** — Over-engineering | Low | Medium | Keep templates minimal; iterate based on need |

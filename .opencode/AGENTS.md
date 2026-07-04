@@ -1,8 +1,8 @@
-# AI Agent Rules - Utils Monorepo
+# AI Agent Rules - Debtorchy
 
 ## Project Overview
 
-- **Project name:** `utils`
+- **Project name:** `Debtorchy`
 - **Core purpose:** Personal utility toolkit consolidating scripts and configurations for daily development workflows. Enables quick environment reconstruction, workflow automation, and knowledge preservation across machines.
 - **Target users:** Solo developer / power user working with Ubuntu, Windows, Altium Designer, and AI-assisted development tools.
 
@@ -68,7 +68,7 @@
 - About to make assumptions about business logic
 - Security or performance implications are unclear
 - Existing code contradicts requirements
-- Path assumptions need confirmation (`~/repos/utils` convention)
+- Path assumptions need confirmation (`~/repos/Debtorchy` convention)
 
 **Don't assume when:**
 - User intent is unclear
@@ -81,7 +81,7 @@
 ## Project Structure
 
 ```
-utils/
+Debtorchy/
 ├── .opencode/              # AI development workflow
 │   ├── AGENTS.md           # This file
 │   ├── PRD.md              # Product requirements
@@ -154,7 +154,7 @@ installed via pip.
 3. Don't assume "it should work" — verify explicitly
 4. Don't leave broken code — either fix or document the issue
 5. Don't rush — take time to understand the problem first
-6. Don't hardcode paths — use `~/repos/utils` convention
+6. Don't hardcode paths — use `~/repos/Debtorchy` convention
 7. Don't forget idempotency — scripts must be re-run safe
 
 ---

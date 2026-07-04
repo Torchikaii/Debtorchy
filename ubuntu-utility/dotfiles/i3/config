@@ -14,10 +14,10 @@ exec --no-startup-id dex --autostart --environment i3
 # they are included here as an example. Modify as you see fit.
 
 # set wallpaper
-exec --no-startup-id feh --bg-fill ~/repos/utils/ubuntu-utility/assets/backgrounds/wallpaper.jpg
+exec --no-startup-id feh --bg-fill ~/repos/Debtorchy/ubuntu-utility/assets/backgrounds/wallpaper.jpg
 
 # start picom (compositor)
-exec_always --no-startup-id picom --config /home/pc/repos/utils/ubuntu-utility/dotfiles/picom/picom.conf
+exec_always --no-startup-id picom --config /home/pc/repos/Debtorchy/ubuntu-utility/dotfiles/picom/picom.conf
 
 # keyboard layout switcher (Alt+Shift to toggle us/lt/gr)
 exec_always --no-startup-id setxkbmap -layout "us,lt" -option "grp:alt_shift_toggle"
