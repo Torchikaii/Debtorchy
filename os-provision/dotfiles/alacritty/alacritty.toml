@@ -1,6 +1,6 @@
 
 #[general] # uncomment this line of code after alacritty update to 0.14 
-import = ["/home/pc/repos/Debtorchy/ubuntu-utility/dotfiles/alacritty/themes/gruvbox-material-medium-dark.toml"]
+import = ["/home/pc/repos/Debtorchy/os-provision/dotfiles/alacritty/themes/gruvbox-material-medium-dark.toml"]
 
 
 [window]

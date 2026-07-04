@@ -54,7 +54,7 @@ Build and maintain a personal utility ecosystem that eliminates repetitive tasks
 
 | Problem | Utility |
 |---------|---------|
-| Time-consuming fresh Ubuntu setup | `ubuntu-utility/` |
+| Time-consuming fresh Ubuntu setup | `os-provision/` |
 | Repetitive BOM column modifications | `BOM-reconstructor/` |
 | Slow NAS navigation | `cd-NAS/` |
 | Inconsistent AI development workflows | `context-engineering/` |
@@ -66,7 +66,7 @@ Build and maintain a personal utility ecosystem that eliminates repetitive tasks
 
 ### In Scope (MVP) ✅
 
-- [ ] **ubuntu-utility** — Automated Ubuntu workstation setup
+- [ ] **os-provision** — Automated Ubuntu workstation setup
   - Shell scripts for app installation (docker, terraform, brave, vim, etc.)
   - Keyboard layout configuration
   - Dotfile symlinking (bash, vim, alacritty)
@@ -150,7 +150,7 @@ Debtorchy/
 ├── context-engineering/ # OpenCode templates
 │   └── .opencode/       # Copy-to-project templates
 ├── docs/               # Documentation
-├── ubuntu-utility/     # Ubuntu setup scripts
+├── os-provision/     # Ubuntu setup scripts
 │   ├── main.sh          # Master orchestration script
 │   ├── apps/            # Individual app installers
 │   ├── services/        # Service configurations
@@ -204,7 +204,7 @@ Debtorchy/
 
 ### Configuration Management
 
-- **Dotfiles** stored in `ubuntu-utility/dotfiles/`
+- **Dotfiles** stored in `os-provision/dotfiles/`
 - **Symlinks** created to `~/.config`
 - **No hardcoded paths** — uses `~/repos/Debtorchy` convention
 
@@ -227,7 +227,7 @@ Not applicable — this is a collection of standalone utilities, not an API-driv
 
 ### Functional Acceptance Criteria ✅
 
-- [ ] `ubuntu-utility/main.sh` executes without errors on fresh Ubuntu 22.04+
+- [ ] `os-provision/main.sh` executes without errors on fresh Ubuntu 22.04+
 - [ ] All app installers create working installations
 - [ ] Dotfile symlinks resolve correctly
 - [ ] BOM Python scripts produce valid Excel output
@@ -251,7 +251,7 @@ Not applicable — this is a collection of standalone utilities, not an API-driv
 **Goal:** Establish core infrastructure
 
 - [x] Repository structure created
-- [x] Basic ubuntu-utility scripts implemented
+- [x] Basic os-provision scripts implemented
 - [x] README documentation written
 - [x] Git ignore configured
 

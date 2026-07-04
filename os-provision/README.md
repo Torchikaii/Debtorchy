@@ -3,7 +3,7 @@
 Automatically install programs and configure your ubuntu system.
 
 ```
-ubuntu-utility/
+os-provision/
 ├── main.sh           # runs all scripts below
 ├── dotfiles.sh       # symlinks dotfiles to ~/.config
 ├── fonts.sh          # symlinks nerd fonts from assets/

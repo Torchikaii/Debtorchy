@@ -1,0 +1,65 @@
+#!/bin/env bash
+
+set -e
+
+# keep sudo prompt in front
+sudo date
+
+# audio
+bash ./os-provision/apps/alsa-utils.sh
+bash ./os-provision/apps/pipewire.sh
+bash ./os-provision/apps/pipewire-pulse.sh
+bash ./os-provision/apps/wireplumber.sh
+
+# desktop
+bash ./os-provision/apps/feh.sh
+bash ./os-provision/apps/font-awesome.sh
+bash ./os-provision/apps/i3.sh
+bash ./os-provision/apps/picom.sh
+bash ./os-provision/apps/polybar.sh # needs font-awesome.sh
+
+# development
+bash ./os-provision/apps/docker.sh
+bash ./os-provision/apps/gh.sh
+bash ./os-provision/apps/git.sh
+bash ./os-provision/apps/opencode.sh
+bash ./os-provision/apps/pyenv.sh
+bash ./os-provision/apps/python.sh
+bash ./os-provision/apps/terraform.sh
+bash ./os-provision/apps/vim.sh
+
+# file tools
+bash ./os-provision/apps/fd.sh
+bash ./os-provision/apps/fzf.sh  # needs fd.sh
+bash ./os-provision/apps/ripgrep.sh
+bash ./os-provision/apps/rsync.sh
+bash ./os-provision/apps/tree.sh
+
+# networking
+bash ./os-provision/apps/cifs-utils.sh
+bash ./os-provision/apps/nfs-common.sh
+bash ./os-provision/apps/smbclient.sh
+bash ./os-provision/apps/ssh.sh
+
+# shell
+bash ./os-provision/apps/alacritty.sh
+bash ./os-provision/apps/bash-completion.sh
+bash ./os-provision/apps/starship.sh
+bash ./os-provision/apps/tmux.sh
+
+# system
+bash ./os-provision/apps/brave.sh
+bash ./os-provision/apps/coreutils.sh
+bash ./os-provision/apps/keepassxc.sh
+bash ./os-provision/apps/less.sh
+bash ./os-provision/apps/lesspipe.sh
+bash ./os-provision/apps/libreoffice.sh
+bash ./os-provision/apps/p7zip.sh
+
+# system configuration
+bash ./os-provision/dotfiles.sh
+bash ./os-provision/fonts.sh
+
+# python packages
+# needs python.sh
+bash ./os-provision/python/python-packages.sh

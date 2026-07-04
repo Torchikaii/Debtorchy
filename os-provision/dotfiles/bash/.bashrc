@@ -105,8 +105,8 @@ eval "$(pyenv virtualenv-init -)"
 # User-defined aliases
 alias utils='cd ~/repos/Debtorchy'
 alias notes='cd ~/repos/Notes'
-alias server='. ~/repos/Debtorchy/ubuntu-utility/commands/server.sh'
-alias sync-s='. ~/repos/Debtorchy/ubuntu-utility/commands/sync-s.sh'
+alias server='. ~/repos/Debtorchy/os-provision/commands/server.sh'
+alias sync-s='. ~/repos/Debtorchy/os-provision/commands/sync-s.sh'
 alias path='echo $PATH | tr ":" "\n"'
 alias clear-path='export PATH=$(echo "$PATH" | tr ":" "\n" | awk "!seen[$0]++" | tr "\n" ":" | sed "s/:$//")'
 alias brave='brave-browser'
@@ -127,3 +127,6 @@ GIT_PART="${YELLOW}\$(__git_ps1 \" (%s)\")${RESET}"
 PS1="${USER_HOST}${GIT_PART}\n${WORK_DIR} $ "
 
 eval "$(starship init bash)"
+
+# opencode
+export PATH=/home/pc/.opencode/bin:$PATH

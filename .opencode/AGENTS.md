@@ -96,7 +96,7 @@ Debtorchy/
 │   └── repos.ps1
 ├── context-engineering/    # OpenCode templates (copy-to-project)
 ├── docs/                   # Documentation
-├── ubuntu-utility/         # Ubuntu setup scripts
+├── os-provision/         # Ubuntu setup scripts
 │   ├── main.sh             # Master orchestrator
 │   ├── apps/               # Individual app installers
 │   ├── services/            # Service configurations
@@ -116,7 +116,7 @@ Debtorchy/
 
 - **PRD:** `.opencode/PRD.md` — Product requirements and scope
 - **Main entry:** `README.md` — Repository overview
-- **Ubuntu setup:** `ubuntu-utility/main.sh` — Master setup script
+- **Ubuntu setup:** `os-provision/main.sh` — Master setup script
 - **BOM tools:** `BOM-reconstructor/consolidate_bom.py` — Excel BOM processing
 
 ---
