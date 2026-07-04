@@ -5,49 +5,64 @@ Automatically install programs and configure your ubuntu system.
 ```
 ubuntu-utility/
 ├── main.sh           # runs all scripts below
-├── keyboard.sh       # keyboard layouts (console + GNOME)
 ├── dotfiles.sh       # symlinks dotfiles to ~/.config
+├── fonts.sh          # symlinks nerd fonts from assets/
 ├── apps/
-│   ├── docker.sh     # docker
-│   ├── terraform.sh  # terraform
-│   ├── brave.sh      # brave browser
-│   ├── alacritty.sh  # alacritty config symlink
-│   ├── opencode.sh   # opencode CLI
-│   ├── keepassxc.sh  # keepassxc
-│   ├── libreoffice.sh # libreoffice
-│   ├── vim.sh        # vim
-│   ├── git.sh        # git
-│   └── p7zip.sh      # p7zip
-├── services/
-│   ├── ssh.sh        # ssh config
-│   ├── cifs-utils.sh # cifs-utils
-│   └── nfs-common.sh # nfs-common
+│   ├── alsa-utils.sh
+│   ├── alacritty.sh
+│   ├── bash-completion.sh
+│   ├── brave.sh
+│   ├── cifs-utils.sh
+│   ├── coreutils.sh
+│   ├── docker.sh
+│   ├── fd.sh
+│   ├── feh.sh
+│   ├── font-awesome.sh
+│   ├── fzf.sh
+│   ├── gh.sh
+│   ├── git.sh
+│   ├── i3.sh
+│   ├── keepassxc.sh
+│   ├── less.sh
+│   ├── lesspipe.sh
+│   ├── libreoffice.sh
+│   ├── nfs-common.sh
+│   ├── opencode.sh
+│   ├── p7zip.sh
+│   ├── picom.sh
+│   ├── pipewire-pulse.sh
+│   ├── pipewire.sh
+│   ├── polybar.sh
+│   ├── pyenv.sh
+│   ├── python.sh
+│   ├── ripgrep.sh
+│   ├── rsync.sh
+│   ├── smbclient.sh
+│   ├── ssh.sh
+│   ├── starship.sh
+│   ├── terraform.sh
+│   ├── tmux.sh
+│   ├── tree.sh
+│   ├── vim.sh
+│   └── wireplumber.sh
 ├── commands/
 │   ├── logging.sh    # log helper
 │   ├── server.sh     # mount NAS via SMB
 │   └── sync-s.sh     # sync file(s) from NAS to ~/Desktop
-└── dotfiles/         # config files (symlinked to ~/.config)
-    ├── bash/.bashrc
-    ├── vim/.vimrc
-    ├── keyboard.dconf
-    └── alacritty/
-        ├── alacritty.toml
-        └── themes/
-            ├── catppuccin-frappe.toml
-            ├── catppuccin-mocha.toml
-            ├── gruvbox-material-medium-dark.toml
-            └── miasma.toml
+├── python/
+│   └── python-packages.sh
+├── dotfiles/         # config files (symlinked to ~/.config)
+│   ├── alacritty/
+│   ├── bash/
+│   ├── i3/
+│   ├── opencode/
+│   ├── picom/
+│   ├── polybar/
+│   ├── starship/
+│   └── vim/
+└── assets/
+    └── backgrounds/
+        └── wallpaper.jpg
 ```
 
-
 Run `main.sh` on fresh Ubuntu. All scripts safe to re-run.
-
-**Alacritty setup:**
-- Installs alacritty via apt
-- Creates symlink: `~/.config/alacritty/alacritty.toml` -> `~/repos/utils/ubuntu-utility/dotfiles/alacritty/alacritty.toml`
-- Safe to re-run (uses `rm -f` before symlink)
-- Will fail if utils is not at `~/repos/utils`
-
-**cifs-utils.sh:** Installs cifs-utils and smbclient.
-
-**sync-s:** Pulls `<file>` from NAS to `~/Desktop/`. Mounts NAS automatically if needed. Alias: `sync-s`.
