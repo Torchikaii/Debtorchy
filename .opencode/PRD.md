@@ -1,19 +1,17 @@
-# Product Requirements Document: Utils Monorepo
+# Product Requirements Document: Debtorchy
 
 **Version:** 1.0  
-**Last Updated:** 2026-03-25
+**Last Updated:** 2026-07-08
 
 ---
 
 ## 1. Executive Summary
 
-This repository serves as a personal utility toolkit ("utils"), consolidating small but essential scripts and configurations that support daily development workflows. Rather than maintaining numerous separate repositories for small utilities, this monorepo approach keeps related tools organized, version-controlled, and easily deployable across systems.
+Debtorchy is a monorepo that packages a complete Debian operating system together with its provisioning scripts, configuration, and documentation. The repository contains the full extracted Debian netinst ISO (versioned via git-lfs), post-install automation scripts, and build tooling — everything needed to produce a bootable, fully autonomous Debian installer.
 
-The project addresses the practical reality that developers accumulate small scripts, configurations, and tools over time. By centralizing these utilities, the repository enables quick environment reconstruction, workflow automation, and knowledge preservation.
+The core value proposition is **full OS reproducibility**: a computer running Debtorchy carries no permanent important data. All user data, credentials, and assets live on redundant file servers. The OS itself is rebuilt and reprovisioned from this repo on every install, making each machine a stateless, disposable compute node that can be recreated at any time.
 
-**Core Value Proposition:** One repository to rule all personal utilities — portable, maintainable, and ready to deploy anywhere.
-
-**MVP Goal:** Provide a curated collection of utilities that reduce friction in daily development tasks, from workstation setup to BOM management to structured AI-assisted development.
+**Core Value Proposition:** One repository to rule the entire OS — from bare metal to productive workstation, fully automated, fully reproducible.
 
 ---
 
@@ -21,15 +19,15 @@ The project addresses the practical reality that developers accumulate small scr
 
 ### Mission Statement
 
-Build and maintain a personal utility ecosystem that eliminates repetitive tasks, preserves institutional knowledge, and enables instant environment recreation across machines.
+Build and maintain a complete, autonomous operating system deployment pipeline where a single repository contains the OS image, provisioning logic, and documentation — enabling instant, hands-free recreation of a production-ready workstation on any hardware.
 
 ### Core Principles
 
-1. **Simplicity First** — Each utility should do one thing well. Avoid over-engineering small tools.
-2. **Portability** — Utilities must work across different environments (Linux, Windows via scripts, etc.)
-3. **Idempotency** — Scripts must be safe to re-run. No duplicate entries, no errors on re-execution.
-4. **Self-Contained** — Minimal external dependencies. Prefer standard library tools where possible.
-5. **Documentation by Default** — Every utility includes README explaining purpose, usage, and dependencies.
+1. **Full Automation** — OS installation requires zero human interaction. Preseed configuration handles partitioning, user creation, and initial setup. Post-install scripts install programs, symlink dotfiles, and synchronise assets from file servers.
+2. **Reproducibility** — Every install produces an identical system. No permanent state lives on the machine; all important data resides on redundant file servers.
+3. **Idempotency** — All provisioning scripts are safe to re-run. No duplicate entries, no errors on re-execution.
+4. **One Source of Truth** — The repository is the single authoritative source for the OS image, provisioning logic, and documentation.
+5. **Self-Contained** — Minimal external dependencies. The repo holds everything needed to build and deploy.
 
 ---
 
@@ -38,96 +36,57 @@ Build and maintain a personal utility ecosystem that eliminates repetitive tasks
 ### Primary User
 
 **The Solo Developer / Power User**
-- Develops firmware/PCB using Altium Designer
-- Uses Ubuntu as primary workstation
-- Leverages AI tools (OpenCode) for development assistance
-- Maintains Windows environment for specific tasks
-
-### Technical Comfort Level
-
-- Comfortable with command line
-- Familiar with shell scripting (bash)
-- Basic Python knowledge for BOM utilities
-- Understands symlinks and dotfile management
+- Maintains one or more Debian workstations
+- Wants to recreate a productive environment instantly after any reinstall
+- Stores all permanent data on redundant file servers
+- Comfortable with command line and shell scripting
 
 ### Problems Solved
 
-| Problem | Utility |
-|---------|---------|
-| Time-consuming fresh Ubuntu setup | `ubuntu-utility/` |
-| Repetitive BOM column modifications | `BOM-reconstructor/` |
-| Slow NAS navigation | `cd-NAS/` |
-| Inconsistent AI development workflows | `context-engineering/` |
-| Scattered documentation | `docs/` |
+| Problem | Solution |
+|---------|----------|
+| Time-consuming OS reinstallation | Fully autonomous preseed install |
+| Manual post-install setup | Automated provisioning scripts |
+| Scattered dotfiles and config | Centralised repo with symlinks |
+| Irreproducible environments | Version-controlled OS image |
 
 ---
 
 ## 4. Scope
 
-### In Scope (MVP) ✅
+### In Scope ✅
 
-- [ ] **ubuntu-utility** — Automated Ubuntu workstation setup
-  - Shell scripts for app installation (docker, terraform, brave, vim, etc.)
-  - Keyboard layout configuration
-  - Dotfile symlinking (bash, vim, alacritty)
-  - Network storage mounting (cifs, nfs)
-  - Safe to re-run idempotent execution
-
-- [ ] **BOM-reconstructor** — Altium BOM file processing
-  - Python scripts for Excel manipulation
-  - Column addition/removal
-  - CSV consolidation from multiple files
-  - Works with Altium default export format
-
-- [ ] **cd-NAS** — Quick NAS access
-  - Windows CMD script (`repos.bat`)
-  - PowerShell script (`repos.ps1`)
-  - Auto-login and directory change
-
-- [ ] **context-engineering** — OpenCode workflow templates
-  - PRD generation command
-  - Agent rules templates
-  - Progress tracking system
-  - Feature planning templates
-
-- [ ] **docs** — Reference documentation
-  - Git credential management
-  - How-to guides
+- [ ] **ISO management** — Extracted Debian netinst ISO stored in `iso/` and version-controlled via git-lfs
+- [ ] **ISO rebuilding** — `docs/build-iso.md` documents the xorriso command to produce a bootable ISO from the `iso/` directory
+- [ ] **Preseed configuration** — `preseed.cfg` is baked into the ISO, enabling fully autonomous installation with no human intervention
+- [ ] **Post-install provisioning** — `os-provision/` scripts run automatically after first boot to install programs, dotfiles, and assets
+- [ ] **File server synchronisation** — Scripts mount NAS, sync password databases, fonts, wallpapers, and other assets from redundant file servers
+- [ ] **PXE boot** — The OS can be installed over the network via PXE in addition to USB
+- [ ] **Documentation** — `docs/` contains build instructions, usage guides, and reference material
 
 ### Out of Scope ❌
 
-- [ ] GUI applications (CLI-first approach)
-- [ ] Cross-platform abstraction layers
+- [ ] GUI applications for system management (CLI-first approach)
+- [ ] Cross-platform support (Debian only)
+- [ ] Enterprise fleet management (targeting individual power users)
 
 ---
 
 ## 5. User Stories
 
-### Ubuntu Setup
+**US-001:** As a power user, I want to build a bootable ISO from the repository, so I can install Debian on any machine.
 
-**US-001:** As a developer, I want to run one script to set up a fresh Ubuntu machine, so I can be productive within minutes instead of hours of manual configuration.
+**US-002:** As a power user, I want the OS installation to require zero interaction, so I can start the install and walk away.
 
-**US-002:** As a developer, I want my dotfiles symlinked from a repository, so changes to configuration are automatically shared across machines.
+**US-003:** As a power user, I want post-install scripts to automatically install my programs, dotfiles, and assets, so my workstation is ready to use immediately after first boot.
 
-**US-003:** As a developer, I want keyboard shortcuts configured automatically, so I don't have to reconfigure after each Ubuntu reinstall.
+**US-004:** As a power user, I want my password database and other assets synchronised from a file server, so no permanent data lives on the local machine.
 
-**US-004:** As a developer, I want to mount NAS storage with a single command, so I can access my files without manual network configuration.
+**US-005:** As a power user, I want to install the OS via PXE boot, so I don't need a USB stick for new installations.
 
-### BOM Processing
+**US-006:** As a power user, I want all provisioning scripts to be idempotent, so I can re-run them safely without duplicates or errors.
 
-**US-005:** As an electronics engineer, I want to modify BOM columns from Altium exports, so I can prepare files for different manufacturing requirements.
-
-**US-006:** As an electronics engineer, I want to consolidate multiple BOM files, so I can compare revisions or merge component lists.
-
-### Development Workflow
-
-**US-007:** As an AI-augmented developer, I want structured planning commands, so I can break complex features into manageable phases.
-
-**US-008:** As an AI-augmented developer, I want progress tracking, so I can see what remains in each development phase.
-
-### Cross-Platform
-
-**US-009:** As a developer using both Windows and Linux, I want platform-specific utilities in one repo, so I don't forget where my tools are located.
+**US-007:** As a power user, I want the ISO content version-controlled with git-lfs, so I can track changes to the OS image over time.
 
 ---
 
@@ -136,27 +95,38 @@ Build and maintain a personal utility ecosystem that eliminates repetitive tasks
 ### Directory Structure
 
 ```
-utils/
-├── .opencode/           # AI development workflow templates
-│   ├── commands/        # Slash commands for OpenCode
-│   ├── progress/        # Human-tracked task completion
-│   └── plans/           # Feature implementation plans
-├── BOM-reconstructor/   # BOM processing utilities
-│   ├── consolidate_bom.py
-│   └── consolidate_bom_excel.py
-├── cd-NAS/             # NAS quick-access scripts
-│   ├── repos.bat        # Windows CMD
-│   └── repos.ps1        # Windows PowerShell
-├── context-engineering/ # OpenCode templates
-│   └── .opencode/       # Copy-to-project templates
-├── docs/               # Documentation
-├── ubuntu-utility/     # Ubuntu setup scripts
-│   ├── main.sh          # Master orchestration script
-│   ├── apps/            # Individual app installers
-│   ├── services/        # Service configurations
-│   ├── commands/        # Utility commands
-│   └── dotfiles/        # Config files (symlink targets)
-└── README.md           # Repository entry point
+Debtorchy/
+├── iso/              # Extracted Debian netinst ISO (git-lfs tracked)
+│   ├── boot/
+│   ├── debian -> .   # ISO circular symlink (preserved from original)
+│   ├── dists/
+│   ├── install.amd/
+│   ├── isolinux/
+│   ├── pool/
+│   └── ...
+├── os-provision/     # Post-install scripts
+│   ├── main.sh       # Orchestrator (runs after OS install)
+│   ├── apps/         # Individual app installers
+│   ├── commands/     # Utility commands (NAS mount, sync, logging)
+│   ├── dotfiles/     # Config files (symlinked to ~/.config)
+│   ├── dotfiles.sh   # Symlink creation
+│   ├── fonts.sh      # Nerd font symlinking
+│   └── python/       # Python package installation
+├── docs/             # Usage documentation
+│   └── build-iso.md  # ISO build instructions
+└── README.md         # Repository entry point
+```
+
+### Data Flow
+
+```
+1. Build ISO        → xorriso packages iso/ → debtorchy.iso
+2. Boot ISO         → USB stick or PXE
+3. Preseed install  → Fully autonomous Debian installation
+4. First boot       → os-provision/main.sh runs automatically
+5. Provisioning     → Programs installed, dotfiles symlinked,
+                       assets synced from file server
+6. Ready            → Productive workstation, no permanent local data
 ```
 
 ### Design Patterns
@@ -164,31 +134,23 @@ utils/
 | Pattern | Application |
 |---------|-------------|
 | **Facade** | `main.sh` orchestrates all sub-scripts |
-| **Single Responsibility** | Each `.sh` file handles one app/service |
-| **Template Method** | Context engineering commands follow consistent structure |
+| **Single Responsibility** | Each `.sh` file handles one app or concern |
 | **Idempotent Scripts** | All scripts check state before modifying |
+| **Preseed Automation** | Debian installer fully configured via preseed |
 
 ---
 
 ## 7. Technology Stack
 
-### Shell Scripts
-- **Bash** — Primary scripting language for Ubuntu
-- **DASH** — POSIX-compliant shell compatibility
-- **Dconf/GSettings** — GNOME configuration management
-
-### Python
-- **Python 3.x** — BOM processing
-- **openpyxl** — Excel file manipulation
-- **pandas** — Data processing (optional enhancement)
-
-### Platform-Specific
-- **CMD/PowerShell** — Windows NAS scripts
-- **GitHub Actions** — CI/CD workflows
-
-### Development Tools
-- **OpenCode** — AI development assistant
-- **Zod** — Schema validation for context engineering
+| Component | Technology |
+|-----------|------------|
+| Operating System | Debian (netinst, current stable) |
+| ISO Build | xorriso / mkisofs |
+| Version Control | Git + git-lfs (for iso/) |
+| Provisioning | Shell scripts (bash) |
+| File Server Access | CIFS/SMB, NFS |
+| Preseed | debian-installer preseed configuration |
+| PXE | dnsmasq / isc-dhcp-server + tftpd-hpa |
 
 ---
 
@@ -198,28 +160,29 @@ utils/
 
 | Utility | Method |
 |---------|--------|
-| NAS Mounting | Stored credentials (cifs-utils) |
+| NAS Mounting | Stored credentials (`~/.smbcredentials-*`) |
+| Password Database | KeePassXC (`main.kdbx`), synced from file server |
 | Git | SSH keys / credential helpers |
-| General | No sensitive data in repo |
+| General | No sensitive data in repository |
 
 ### Configuration Management
 
-- **Dotfiles** stored in `ubuntu-utility/dotfiles/`
-- **Symlinks** created to `~/.config`
-- **No hardcoded paths** — uses `~/repos/utils` convention
+- Dotfiles stored in `os-provision/dotfiles/` and symlinked to `~/.config`
+- Preseed configuration baked into ISO for hands-off install
+- File server paths and credentials configured via environment variables or credential files
 
 ### Security Scope
 
-- No production secrets stored
-- No API keys or tokens in repository
+- No production secrets stored in repository
+- No API keys or tokens committed
 - `.gitignore` excludes sensitive files
-- Credentials handled by system keyring (future enhancement)
+- Credentials handled by local credential files with `chmod 600`
 
 ---
 
 ## 9. API Specification
 
-Not applicable — this is a collection of standalone utilities, not an API-driven service.
+Not applicable — this is a collection of build tooling and provisioning scripts, not an API-driven service.
 
 ---
 
@@ -227,69 +190,63 @@ Not applicable — this is a collection of standalone utilities, not an API-driv
 
 ### Functional Acceptance Criteria ✅
 
-- [ ] `ubuntu-utility/main.sh` executes without errors on fresh Ubuntu 22.04+
+- [ ] `xorriso` command produces a bootable ISO from `iso/` directory
+- [ ] ISO installs Debian fully autonomously with preseed configuration
+- [ ] `os-provision/main.sh` executes without errors on a fresh Debian system
 - [ ] All app installers create working installations
 - [ ] Dotfile symlinks resolve correctly
-- [ ] BOM Python scripts produce valid Excel output
-- [ ] NAS scripts connect to configured server
-- [ ] OpenCode commands load correct templates
+- [ ] File server mount and sync commands work end-to-end
+- [ ] PXE boot loads the installer successfully
 
 ### Quality Indicators
 
 | Metric | Target |
 |--------|--------|
 | Scripts re-run safely | 100% idempotent |
-| README coverage | All utilities documented |
-| Cross-session context | OpenCode templates functional |
-| Setup time (Ubuntu) | < 30 minutes automated |
+| ISO builds | Reproducible from committed `iso/` content |
+| Install autonomy | Zero human interactions required |
+| Setup time (bare metal) | < 30 minutes total |
 
 ---
 
 ## 11. Implementation Phases
 
-### Phase 1: Foundation ✅
-**Goal:** Establish core infrastructure
+### Phase 1: Foundation
+**Goal:** Extract and version-control the Debian ISO, establish build documentation.
 
-- [x] Repository structure created
-- [x] Basic ubuntu-utility scripts implemented
-- [x] README documentation written
-- [x] Git ignore configured
+- [x] Debian netinst ISO extracted to `iso/` directory
+- [x] `iso/` content tracked via git-lfs
+- [x] `docs/build-iso.md` documents ISO rebuild procedure
+- [x] Basic `os-provision/` scripts for program installation
 
-**Validation:** Can clone repo and run `main.sh` on fresh Ubuntu  
-**Timeline:** Completed
+**Validation:** ISO rebuilds from `iso/` directory and boots successfully.
 
-### Phase 2: Utility Expansion ✅
-**Goal:** Add missing utilities
+### Phase 2: Autonomous Installation
+**Goal:** Bake preseed configuration into ISO for fully hands-off install.
 
-- [x] BOM-reconstructor Python scripts added
-- [x] cd-NAS Windows scripts added
-- [x] context-engineering templates created
-- [x] docs folder populated
+- [ ] `preseed.cfg` created and injected into ISO during build
+- [ ] Post-install trigger runs `os-provision/main.sh` on first boot
+- [ ] File server sync scripts operational
 
-**Validation:** Each utility works independently  
-**Timeline:** Completed
+**Validation:** Boot ISO → walk away → return to fully provisioned workstation.
 
-### Phase 3: Workflow Integration (Current)
-**Goal:** Enhance AI-assisted development
+### Phase 3: PXE Boot
+**Goal:** Support network-based installation without USB media.
 
-- [x] OpenCode command templates implemented
-- [x] PRD generation workflow created
-- [ ] Agent rules template refined
-- [ ] Progress tracking system operational
+- [ ] PXE server configuration documented
+- [ ] Network boot chain tested and working
+- [ ] Preseed + PXE combined for fully remote install
 
-**Validation:** Can run full `/create-prd` → `/execute` workflow  
-**Timeline:** In progress
+**Validation:** Machine PXE-boots and completes autonomous install.
 
-### Phase 4: Polish & Portability
-**Goal:** Improve maintainability
+### Phase 4: Offline & Optimisation
+**Goal:** Reduce internet dependency during installation.
 
-- [ ] Add input validation to all scripts
-- [ ] Create Windows WSL compatibility layer
-- [ ] Add installation script for cd-NAS
-- [ ] Document all command-line arguments
+- [ ] `.apt` package cache stored on file server
+- [ ] Optional: programs baked directly into ISO
+- [ ] Optional: offline-reproducible-workstation mode
 
-**Validation:** All scripts have `--help` or usage info  
-**Timeline:** Future
+**Validation:** Full install possible without internet access (cache served from LAN).
 
 ---
 
@@ -297,11 +254,11 @@ Not applicable — this is a collection of standalone utilities, not an API-driv
 
 | Risk | Impact | Likelihood | Mitigation |
 |------|--------|------------|------------|
-| **Path dependencies** — Scripts assume `~/repos/utils` | Medium | High | Document path requirement; add path detection |
-| **Ubuntu version drift** — APIs change between releases | Medium | Medium | Test on LTS releases; use version checks |
-| **BOM format changes** — Altium export format varies | Low | Medium | Add format detection; version comments |
-| **Context engineering template bloat** — Over-engineering | Low | Medium | Keep templates minimal; iterate based on need |
-| **Windows script neglect** — Scripts not tested regularly | Low | High | Add periodic testing; document requirements |
+| **Debian version drift** — New stable releases break preseed or package compatibility | High | Medium | Test on current stable; maintain upgrade notes |
+| **git-lfs storage bloat** — ISO content changes inflate repository size | Medium | High | Prune old LFS objects periodically; document storage expectations |
+| **Path dependencies** — Scripts assume `~/repos/Debtorchy` | Medium | High | Add path detection; document requirement in README |
+| **File server unreachable** — Install fails without NAS access | High | Low | Graceful fallback; cache critical assets locally |
+| **Circular iso/debian symlink** — Tools may infinite-loop when traversing `iso/` | Low | Medium | Document the symlink behaviour; add note in README |
 
 ---
 
@@ -309,18 +266,13 @@ Not applicable — this is a collection of standalone utilities, not an API-driv
 
 ### Post-MVP Enhancements
 
-- **Windows Subsystem for Linux (WSL) support** — Unified scripts across Windows/Linux
-- **Homebrew/Linuxbrew compatibility** — Package management abstraction
-- **Docker containerization** — Portable development environments
-- **Ansible/Terraform integration** — Infrastructure-as-code for workstation
-- **Dotfiles manager integration** — Consider chezmoi or GNU Stow
+- **Offline package cache** — Host a local Debian mirror or cached `.apt` packages on the file server for internet-independent installation
+- **Baked programs** — Include commonly needed `.deb` packages directly in the ISO to reduce post-install downloads
+- **Docker-based build** — Containerised ISO build environment for reproducibility across hosts
+- **Automated testing** — CI pipeline that builds the ISO and boots it in a VM to validate the full install
 
 ### Integration Opportunities
 
-- **GitHub Codespaces** — Cloud development environment
-- **VS Code Remote** — Remote development support
-- **Tailscale/Headscale** — Secure remote access to NAS
-
-### Long-Term Vision
-
-When any single utility outgrows the monorepo, it can be extracted into its own repository while maintaining the development workflow established here. The context-engineering system is designed to be portable — copy `.opencode/` to any project for consistent AI-assisted development.
+- **GitHub Codespaces / VS Code Remote** — Access the repo from anywhere
+- **Tailscale/Headscale** — Secure remote access to the file server
+- **Ansible / Terraform** — Infrastructure-as-code for workstation provisioning (if complexity warrants it)

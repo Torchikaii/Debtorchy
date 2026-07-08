@@ -1,20 +1,20 @@
-# AI Agent Rules - Utils Monorepo
+# AI Agent Rules - Debtorchy
 
 ## Project Overview
 
-- **Project name:** `utils`
-- **Core purpose:** Personal utility toolkit consolidating scripts and configurations for daily development workflows. Enables quick environment reconstruction, workflow automation, and knowledge preservation across machines.
-- **Target users:** Solo developer / power user working with Ubuntu, Windows, Altium Designer, and AI-assisted development tools.
+- **Project name:** `Debtorchy`
+- **Core purpose:** Monorepo containing a complete Debian operating system (extracted ISO, versioned via git-lfs), post-install provisioning scripts, and documentation. Enables fully autonomous, reproducible OS installation with zero human intervention.
+- **Target users:** Solo developer / power user who wants instant, hands-free recreation of a production-ready Debian workstation.
 
 ---
 
 ## Core Principles
 
-1. **Ask questions instead of assuming** — When unclear about requirements, ask before implementing
+1. **Ask questions instead of assuming** — When unclear about requirements, ask the user before implementing
 2. **Verify before acting** — Read existing code before making changes, understand the codebase first
-3. **Keep it simple** — Prefer simple solutions; avoid over-engineering small tools
+3. **Keep it simple** — Prefer simple solutions over complex ones unless complexity is justified
 4. **Document decisions** — Explain why you made certain choices
-5. **Test thoroughly** — Verify changes work and don't break existing functionality
+5. **Test thoroughly** — Verify your changes work and don't break existing functionality
 6. **Maintain idempotency** — Scripts must be safe to re-run; no errors on repeated execution
 7. **One thing well** — Each utility/script should do one thing; don't bundle unrelated functionality
 
@@ -23,22 +23,14 @@
 ## Coding Style
 
 ### Shell Scripts (Bash)
-- Shebang: `#!/bin/env bash`
+- Shebang: `#!/bin/bash` or `#!/usr/bin/env bash`
 - Use `set -e` for error handling
 - No comments unless explicitly requested
 - Simple, direct approach — avoid unnecessary complexity
 - Validate paths exist before operations
 - Use `rm -f` for symlinks (safe to re-run)
 
-### Python
-- Docstring at top of file explaining purpose and features
-- Standard library imports first, third-party imports second
-- Clear variable naming
-- Basic error handling with `exit(1)` on failure
-- No type hints required (Python 3.x compatibility)
-
 ### General
-- **Formatting:** No automated formatters for shell; Black for Python (if used)
 - **Naming conventions:** lowercase with underscores for files/variables, descriptive names
 - **Code organization:** Feature-based directories, single-responsibility scripts
 
@@ -51,10 +43,10 @@
 
 ## Testing Strategy
 
-- **Test framework:** None (no formal testing infrastructure per PRD scope)
-- **Validation approach:** Manual execution and verification
+- **Test framework:** None (manual execution and verification)
+- **Validation approach:** Manual execution on target OS (Debian)
 - **Acceptance criteria:**
-  - Scripts execute without errors on target OS (Ubuntu 22.04+)
+  - Scripts execute without errors
   - Scripts produce expected output
   - Scripts are re-run safe (idempotent)
 
@@ -68,46 +60,44 @@
 - About to make assumptions about business logic
 - Security or performance implications are unclear
 - Existing code contradicts requirements
-- Path assumptions need confirmation (`~/repos/utils` convention)
 
 **Don't assume when:**
 - User intent is unclear
 - Technology choices aren't documented
 - Error handling isn't specified
-- OS compatibility needs clarification
 
 ---
 
 ## Project Structure
 
 ```
-utils/
-├── .opencode/              # AI development workflow
-│   ├── AGENTS.md           # This file
-│   ├── PRD.md              # Product requirements
-│   ├── commands/           # Slash commands for OpenCode
-│   ├── progress/           # Human-tracked task completion
-│   └── plans/              # Feature implementation plans
-├── BOM-reconstructor/     # BOM processing (Python)
-│   ├── consolidate_bom.py
-│   └── consolidate_bom_excel.py
-├── cd-NAS/                 # NAS quick-access (Windows)
-│   ├── repos.bat
-│   └── repos.ps1
-├── context-engineering/    # OpenCode templates (copy-to-project)
-├── docs/                   # Documentation
-├── ubuntu-utility/         # Ubuntu setup scripts
-│   ├── main.sh             # Master orchestrator
-│   ├── apps/               # Individual app installers
-│   ├── services/            # Service configurations
-│   ├── commands/            # Utility commands
-│   ├── keyboard.sh          # Keyboard configuration
-│   ├── dotfiles.sh          # Dotfile symlinking
-│   └── dotfiles/            # Config files (symlink targets)
-│       ├── bash/
-│       ├── vim/
-│       └── alacritty/
-└── README.md
+Debtorchy/
+├── .opencode/         # AI development workflow
+│   ├── AGENTS.md      # This file
+│   ├── AGENTS-template.md
+│   ├── PRD.md         # Product requirements
+│   ├── commands/      # Slash commands for OpenCode
+│   ├── progress/      # Human-tracked task completion
+│   └── plans/         # Feature implementation plans
+├── iso/               # Extracted Debian netinst ISO (git-lfs)
+│   ├── boot/
+│   ├── debian -> .    # ISO circular symlink (preserved)
+│   ├── dists/
+│   ├── install.amd/
+│   ├── isolinux/
+│   ├── pool/
+│   └── firmware/
+├── os-provision/      # Post-install scripts
+│   ├── main.sh        # Master orchestrator
+│   ├── apps/          # Individual app installers
+│   ├── commands/      # Utility commands
+│   ├── dotfiles/      # Config files (symlink targets)
+│   ├── dotfiles.sh    # Dotfile symlinking
+│   ├── fonts.sh       # Font installation
+│   └── python/        # Python package installation
+├── docs/              # Documentation
+│   └── build-iso.md   # ISO build instructions
+└── README.md          # Repository overview
 ```
 
 ---
@@ -116,34 +106,41 @@ utils/
 
 - **PRD:** `.opencode/PRD.md` — Product requirements and scope
 - **Main entry:** `README.md` — Repository overview
-- **Ubuntu setup:** `ubuntu-utility/main.sh` — Master setup script
-- **BOM tools:** `BOM-reconstructor/consolidate_bom.py` — Excel BOM processing
+- **ISO build:** `docs/build-iso.md` — How to rebuild the ISO
+- **Provisioning:** `os-provision/main.sh` — Post-install orchestrator
 
 ---
 
 ## Communication Guidelines
 
-- Speak as little as possible; preserve token usage unless told otherwise
-- Prefer saying too little then too much
-- When executing a task, respond with "Done" or "Completed" — no summaries
-- When asked a simple question, answer "yes" or "no" — one word
+- Speak as little as you can, preserve token usage, unless told otherwise or you want to ask a question.
+- Prefer saying too little then too much.
+- When AI agent is asked to execute a task it should never print summary or something but "Done" or "Completed". 1 Word, no speeches, no poems.
+- When asked a simple question AI agent has to always say "yes" or "no". 1 word answer.
 
 ```
 Example:
-q: Can you clone a public git repository without github token?
+q: Can you clone a public git repository without github token ?
 a: yes
 ```
 
-- When "yes" or "no" doesn't fit, give one (sometimes two) sentence(s)
+- When it's hard to answer "yes" or "no" to the question (or the question is incorrect). You can give one (in some cases two) sentence answer.
 
 ```
 Example:
-q: How do you install numpy via apt?
-a: Numpy is not a linux package, it's a python package and can be
-installed via pip.
+q: How do you install numpy via apt ?
+a: Numpy is not a linux package, it's a python package and can be installed via pip.
 ```
 
-- When user asks for explanation, go on with normal explanation
+- If a user doesn't understand what are you saying and asking you why certain things work in certain ways or ask you to explain then you can go on with normal explanation, instead of one or two sentences.
+
+```
+Example
+q1: Is sky on earth green ?
+a1: no
+q2: why not ?
+a2: Because <go on with explanation, about dispersion and other optics related stuff, light travelling, bending, absorbtion, etc>
+```
 
 ---
 
@@ -152,10 +149,11 @@ installed via pip.
 1. Don't skip reading existing code before making changes
 2. Don't implement features without understanding the architecture
 3. Don't assume "it should work" — verify explicitly
-4. Don't leave broken code — either fix or document the issue
+4. Don't leave broken code — either fix it or document the issue
 5. Don't rush — take time to understand the problem first
-6. Don't hardcode paths — use `~/repos/utils` convention
+6. Don't hardcode paths — use `~/repos/Debtorchy` convention
 7. Don't forget idempotency — scripts must be re-run safe
+8. **Never run dangerous git commands** — Do not `git commit`, `git push`, `git rebase`, `git merge`, `git reset`, or any other destructive or mutating git operations. Ask the human to do those manually.
 
 ---
 
@@ -164,5 +162,5 @@ installed via pip.
 - Code follows existing patterns in the codebase
 - Scripts execute without errors on target environment
 - Idempotency maintained (safe to re-run)
-- README/documentation updated if needed
+- Documentation updated if needed
 - Changes validated before marking complete

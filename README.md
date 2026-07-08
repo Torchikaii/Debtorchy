@@ -1,16 +1,26 @@
-### Utilities that I use
+### Debtorchy
 
-- `/BOM-reconstructor` used for modifying (adding/removing columns) BOM.xlsx files,
-that were exported from Altium designer with their default configuration (Altium
-allows you to select how many columns to export -> `BOM.xlsx`).
+A monorepo containing a full Debian operating system and its
+assets — the OS itself, provisioning scripts, and
+documentation in one version-controlled place.
 
-- `/cd-NAS` when command `repos` entered in cmd, it auto logs in to NAS (net use) and
-cd's (changes directory) to `nas2\Server\Dokumentai\Aplankas\Repos`.
+## Prerequisites
 
-- `/context-engineering` context engineering templates for OpenCode commands: PRD, PRP, SPEC, ADR
+- `git-lfs` — required if working with the `iso/` directory
+  (`sudo apt install git-lfs` on Debian)
 
-- `/docs` useful documentation file's and how to's.
+## Structure
 
-- `/ubuntu-utility` scripts and dotfiles to turn empty ubuntu installation into my
-system
+```
+Debtorchy/
+├── .github/workflows/ # CI/CD workflows (linting, testing)
+├── .opencode/         # Context engineering files (AI dev workflow)
+├── iso/               # Extracted Debian netinst ISO (git-lfs tracked)
+├── os-provision/      # Post-install scripts (programs, dotfiles, config)
+└── docs/              # Usage documentation
+```
 
+## Usage
+
+- **Build ISO** — see `docs/build-iso.md`
+- **Provision** — run `os-provision/main.sh` after OS installation
