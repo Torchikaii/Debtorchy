@@ -209,47 +209,6 @@ Not applicable — this is a collection of build tooling and provisioning script
 
 ---
 
-## 11. Implementation Phases
-
-### Phase 1: Foundation
-**Goal:** Extract and version-control the Debian ISO, establish build documentation.
-
-- [x] Debian netinst ISO extracted to `iso/` directory
-- [x] `iso/` content tracked via git-lfs
-- [x] `docs/build-iso.md` documents ISO rebuild procedure
-- [x] Basic `os-provision/` scripts for program installation
-
-**Validation:** ISO rebuilds from `iso/` directory and boots successfully.
-
-### Phase 2: Autonomous Installation
-**Goal:** Bake preseed configuration into ISO for fully hands-off install.
-
-- [ ] `preseed.cfg` created and injected into ISO during build
-- [ ] Post-install trigger runs `os-provision/main.sh` on first boot
-- [ ] File server sync scripts operational
-
-**Validation:** Boot ISO → walk away → return to fully provisioned workstation.
-
-### Phase 3: PXE Boot
-**Goal:** Support network-based installation without USB media.
-
-- [ ] PXE server configuration documented
-- [ ] Network boot chain tested and working
-- [ ] Preseed + PXE combined for fully remote install
-
-**Validation:** Machine PXE-boots and completes autonomous install.
-
-### Phase 4: Offline & Optimisation
-**Goal:** Reduce internet dependency during installation.
-
-- [ ] `.apt` package cache stored on file server
-- [ ] Optional: programs baked directly into ISO
-- [ ] Optional: offline-reproducible-workstation mode
-
-**Validation:** Full install possible without internet access (cache served from LAN).
-
----
-
 ## 12. Risks & Mitigations
 
 | Risk | Impact | Likelihood | Mitigation |
@@ -268,11 +227,5 @@ Not applicable — this is a collection of build tooling and provisioning script
 
 - **Offline package cache** — Host a local Debian mirror or cached `.apt` packages on the file server for internet-independent installation
 - **Baked programs** — Include commonly needed `.deb` packages directly in the ISO to reduce post-install downloads
-- **Docker-based build** — Containerised ISO build environment for reproducibility across hosts
 - **Automated testing** — CI pipeline that builds the ISO and boots it in a VM to validate the full install
 
-### Integration Opportunities
-
-- **GitHub Codespaces / VS Code Remote** — Access the repo from anywhere
-- **Tailscale/Headscale** — Secure remote access to the file server
-- **Ansible / Terraform** — Infrastructure-as-code for workstation provisioning (if complexity warrants it)

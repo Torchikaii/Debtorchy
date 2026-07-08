@@ -16,16 +16,14 @@ You **MUST** read these files in order:
 
 2. **`.opencode/AGENTS.md`** - AI Agent Rules (obey these)
 
-3. **`.opencode/progress/current.md`** - Project progress
-   - Current phase number
-   - What has been completed (human-marked ✅)
+3. **`.opencode/PROGRESS.md`** - Implementation status against PRD
+   - What has been completed (✅)
+   - What is still pending (❌)
 
 4. **`README.md`** Files
    - `README.md` inside project root
    - `README.md` inside other folders (they likely document
      specific folders)
-
-5. **.opencode/problems.md**
 
 ### Step 2: Explore Project Structure
 
