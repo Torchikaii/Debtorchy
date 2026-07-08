@@ -3,3 +3,4 @@
 
 *.iso
 debian-iso-extracted
+os-provision/dotfiles/vim/.vim/plugged
