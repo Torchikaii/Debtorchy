@@ -53,7 +53,7 @@ bash ./os-provision/apps/coreutils.sh
 bash ./os-provision/apps/keepassxc.sh
 bash ./os-provision/apps/less.sh
 bash ./os-provision/apps/lesspipe.sh
-bash ./os-provision/apps/libreoffice.sh
+#bash ./os-provision/apps/libreoffice.sh
 bash ./os-provision/apps/p7zip.sh
 
 # system configuration
