@@ -103,7 +103,7 @@ eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
 # User-defined aliases
-alias utils='cd ~/repos/Debtorchy'
+alias debtorchy='cd ~/repos/Debtorchy'
 alias notes='cd ~/repos/Notes'
 alias server='. ~/repos/Debtorchy/os-provision/commands/server.sh'
 alias sync-s='. ~/repos/Debtorchy/os-provision/commands/sync-s.sh'
