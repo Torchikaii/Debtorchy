@@ -7,7 +7,7 @@ ISO="$SCRIPT_DIR/debtorchy.iso"
 VM_NAME="debtorchy"
 RAM=2048
 CPUS=2
-DISK_SIZE=20
+DISK_SIZE=5
 
 if [ ! -f "$ISO" ]; then
     echo "Error: ISO not found at $ISO"
@@ -33,10 +33,11 @@ sudo virt-install \
   --ram "$RAM" \
   --vcpus "$CPUS" \
   --disk size="$DISK_SIZE" \
-  --cdrom "$ISO" \
-  --os-variant debian12 \
+  --disk path="$ISO",device=cdrom,bus=sata,readonly=yes \
+  --os-variant debian13 \
   --network default \
   --graphics spice \
+  --boot cdrom,hd,menu=on \
   --noautoconsole
 
 echo "VM '$VM_NAME' started. Connect with: virsh console $VM_NAME"

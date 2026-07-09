@@ -10,7 +10,7 @@ Tracks implementation status against `.opencode/PRD.md`.
 
 - [x] **ISO management** — Extracted Debian netinst ISO stored in `iso/`, git-lfs tracked
 - [x] **ISO rebuilding** — `docs/build-iso.md` documents the xorriso command
-- [ ] **Preseed configuration** — `preseed.cfg` baked into ISO for autonomous install
+- [x] **Preseed configuration** — `preseed.cfg` baked into ISO for autonomous install
 - [x] **Post-install provisioning** — `os-provision/` scripts run after first boot
 - [~] **File server synchronisation** — NAS mount, password db, fonts, wallpapers sync (`server.sh` + `sync-s.sh` exist but only sync `main.kdbx`)
 - [ ] **PXE boot** — Network installation via PXE
