@@ -32,12 +32,12 @@ sudo virt-install \
   --name "$VM_NAME" \
   --ram "$RAM" \
   --vcpus "$CPUS" \
-  --disk size="$DISK_SIZE" \
-  --disk path="$ISO",device=cdrom,bus=sata,readonly=yes \
+  --disk size="$DISK_SIZE",boot_order=1 \
+  --disk path="$ISO",device=cdrom,bus=sata,readonly=yes,boot_order=2 \
   --os-variant debian13 \
   --network default \
   --graphics spice \
-  --boot cdrom,hd,menu=on \
+  --boot menu=on \
   --noautoconsole
 
 echo "VM '$VM_NAME' started. Connect with: virsh console $VM_NAME"
