@@ -69,18 +69,11 @@ Write to: `$ARGUMENTS` (default: `.opencode/PRD.md`)
 - Functional acceptance criteria (✅ checkboxes)
 - Quality indicators
 
-### 11. Implementation Phases
-- 3-4 phases with:
-  - Phase goal
-  - Deliverables (✅ checkboxes)
-  - Validation criteria
-  - Realistic timeline
-
-### 12. Risks & Mitigations
+### 11. Risks & Mitigations
 - 3-5 key risks
 - Specific mitigation strategies for each
 
-### 13. Future Considerations
+### 12. Future Considerations
 - Post-MVP enhancements
 - Integration opportunities
 

@@ -2,7 +2,7 @@
 sudo rm -rf debian-iso-extracted 
 mkdir debian-iso-extracted
 mount -o loop debtorchy.iso debian-iso-extracted
-cp -a debian-iso-extracted/* ./iso
+cp -a debian-iso-extracted/. ./iso
 umount debian-iso-extracted
 ```
 

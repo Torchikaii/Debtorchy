@@ -77,7 +77,7 @@ Debtorchy/
 │   ├── AGENTS-template.md
 │   ├── PRD.md         # Product requirements
 │   ├── commands/      # Slash commands for OpenCode
-│   ├── progress/      # Human-tracked task completion
+│   ├── PROGRESS.md    # Implementation status against PRD
 │   └── plans/         # Feature implementation plans
 ├── iso/               # Extracted Debian netinst ISO (git-lfs)
 │   ├── boot/
@@ -105,6 +105,7 @@ Debtorchy/
 ## Important Files
 
 - **PRD:** `.opencode/PRD.md` — Product requirements and scope
+- **PROGRESS:** `.opencode/PROGRESS.md` — Implementation status vs PRD
 - **Main entry:** `README.md` — Repository overview
 - **ISO build:** `docs/build-iso.md` — How to rebuild the ISO
 - **Provisioning:** `os-provision/main.sh` — Post-install orchestrator

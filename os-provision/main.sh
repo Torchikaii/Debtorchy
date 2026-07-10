@@ -27,6 +27,14 @@ bash ./os-provision/apps/pyenv.sh
 bash ./os-provision/apps/python.sh
 bash ./os-provision/apps/terraform.sh
 bash ./os-provision/apps/vim.sh
+bash ./os-provision/apps/xorriso.sh
+
+# virtualization
+bash ./os-provision/apps/qemu-kvm.sh
+bash ./os-provision/apps/libvirt-daemon-system.sh
+bash ./os-provision/apps/libvirt-clients.sh
+bash ./os-provision/apps/virtinst.sh
+bash ./os-provision/apps/virt-manager.sh
 
 # file tools
 bash ./os-provision/apps/fd.sh
