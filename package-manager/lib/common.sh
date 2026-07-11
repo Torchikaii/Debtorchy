@@ -2,8 +2,8 @@
 
 set -e
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+LIB_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$LIB_DIR/../.." && pwd)"
 
 NAS_BASE="//192.168.1.97/nas2"
 NAS_MOUNT="/mnt/NAS2"

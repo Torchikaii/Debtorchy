@@ -70,6 +70,9 @@ done
 
 log "Building local APT repository with reprepro"
 
+mkdir -p "$APT_REPO_DIR/conf"
+cp "$SCRIPT_DIR/conf/distributions" "$APT_REPO_DIR/conf/distributions"
+
 if [ -d "$APT_REPO_DIR/db" ]; then
     log "Updating existing repo"
     reprepro -b "$APT_REPO_DIR" includedeb bookworm "$STAGING_DIR/debs"/*.deb 2>/dev/null || true
