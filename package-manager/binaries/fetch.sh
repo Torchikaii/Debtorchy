@@ -34,12 +34,18 @@ while IFS='|' read -r name url type; do
             ;;
         tarball)
             ARCHIVE="$STAGING_DIR/binaries/$name.tar.gz"
+            EXTRACT_DIR="$STAGING_DIR/binaries/$name-extract"
             curl -fsSL "$url" -o "$ARCHIVE"
+            rm -rf "$EXTRACT_DIR"
+            mkdir -p "$EXTRACT_DIR"
             if [ "$name" = "pyenv" ]; then
-                tar -xzf "$ARCHIVE" -C "$DEST_DIR" --strip-components=1
+                tar -xzf "$ARCHIVE" -C "$EXTRACT_DIR" --strip-components=1
             else
-                tar -xzf "$ARCHIVE" -C "$DEST_DIR"
+                tar -xzf "$ARCHIVE" -C "$EXTRACT_DIR"
             fi
+            rm -rf "$DEST_DIR"
+            cp -aL "$EXTRACT_DIR" "$DEST_DIR"
+            rm -rf "$EXTRACT_DIR"
             log "Extracted tarball: $name"
             ;;
         deb)
