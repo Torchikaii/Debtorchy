@@ -5,6 +5,9 @@ set -e
 # keep sudo prompt in front
 sudo date
 
+# configure local APT repo from NAS (if available)
+bash ./os-provision/commands/local-repo.sh
+
 # audio
 bash ./os-provision/apps/alsa-utils.sh
 bash ./os-provision/apps/pipewire.sh
@@ -54,6 +57,9 @@ bash ./os-provision/apps/alacritty.sh
 bash ./os-provision/apps/bash-completion.sh
 bash ./os-provision/apps/starship.sh
 bash ./os-provision/apps/tmux.sh
+
+# package management
+bash ./os-provision/apps/reprepro.sh
 
 # system
 bash ./os-provision/apps/brave.sh

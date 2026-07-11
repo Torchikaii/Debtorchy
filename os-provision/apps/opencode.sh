@@ -9,7 +9,15 @@ if command -v opencode >/dev/null 2>&1; then
     exit 0
 fi
 
-log "Installing Opencode"
-curl -fsSL https://opencode.ai/install | bash
+NAS_CACHE="/mnt/NAS2/Server/homelab-assets/Debtorchy-assets/packages/binaries/opencode/opencode"
+
+if [ -f "$NAS_CACHE" ]; then
+    log "Installing opencode from local cache"
+    sudo cp "$NAS_CACHE" /usr/local/bin/opencode
+    sudo chmod +x /usr/local/bin/opencode
+else
+    log "Installing opencode from internet"
+    curl -fsSL https://opencode.ai/install | bash
+fi
 
 log "opencode.sh completed"

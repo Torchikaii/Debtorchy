@@ -1,0 +1,6 @@
+Origin: Debtorchy-Local
+Label: Debtorchy-Local
+Codename: bookworm
+Architectures: amd64
+Components: main
+Description: Debtorchy local offline package repository
