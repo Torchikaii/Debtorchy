@@ -1,0 +1,8 @@
+# Non-apt binaries to cache on NAS
+# Format: name|url|type
+# type: binary = direct binary download, tarball = extract from archive, deb = debian package
+
+starship|https://github.com/starship/starship/releases/latest/download/starship-x86_64-unknown-linux-musl.tar.gz|tarball
+opencode|https://github.com/anomalyco/opencode/releases/latest/download/opencode-x86_64-linux|binary
+pyenv|https://github.com/pyenv/pyenv/archive/refs/heads/master.tar.gz|tarball
+brave|https://github.com/nicola-music/brave-deb/releases/latest/download/brave-browser_amd64.deb|deb

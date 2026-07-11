@@ -1,6 +1,6 @@
-### Ubuntu setup scripts
+### Debian setup scripts
 
-Automatically install programs and configure your ubuntu system.
+Automatically install programs and configure your debian system.
 
 ```
 os-provision/
@@ -46,12 +46,13 @@ os-provision/
 │   ├── vim.sh
 │   └── wireplumber.sh
 ├── commands/
-│   ├── logging.sh    # log helper
-│   ├── server.sh     # mount NAS via SMB
-│   └── sync-s.sh     # sync file(s) from NAS to ~/Desktop
+│   ├── logging.sh      # log helper
+│   ├── local-repo.sh   # configure APT for local NAS repo
+│   ├── server.sh       # mount NAS via SMB
+│   └── sync-s.sh       # sync file(s) from NAS to ~/Desktop
 ├── python/
 │   └── python-packages.sh
-├── dotfiles/         # config files (symlinked to ~/.config)
+├── dotfiles/           # config files (symlinked to ~/.config)
 │   ├── alacritty/
 │   ├── bash/
 │   ├── i3/
@@ -65,4 +66,12 @@ os-provision/
         └── wallpaper.jpg
 ```
 
-Run `main.sh` on fresh Ubuntu. All scripts safe to re-run.
+Run `main.sh` on fresh debian. All scripts safe to re-run.
+
+## Offline Packages
+
+Apt packages and non-apt binaries are cached on the NAS via
+`package-manager/`. During provisioning, `local-repo.sh` configures
+APT to prefer the local repo (priority 900) before falling back to
+internet. Non-apt scripts (starship, opencode, pyenv, brave) check
+the NAS binary cache before downloading from internet.

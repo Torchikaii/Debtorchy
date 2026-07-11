@@ -1,0 +1,6 @@
+# External APT repositories needed for fetching packages
+# Format: name|gpg-key-url|deb-line
+
+docker|https://download.docker.com/linux/ubuntu/gpg|deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable
+gh|https://cli.github.com/packages/githubcli-archive-keyring.gpg|deb [arch=amd64 signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main
+hashicorp|https://apt.releases.hashicorp.com/gpg|deb [signed-by=/etc/apt/keyrings/hashicorp.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main
