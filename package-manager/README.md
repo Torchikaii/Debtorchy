@@ -58,20 +58,6 @@ package-manager/
 └── README.md
 ```
 
-### File descriptions
-
-| File | Purpose |
-|------|---------|
-| `apt/packages.list` | Top-level apt packages. Dependencies resolved automatically by `apt-cache depends --recurse` |
-| `apt/external-repos.list` | External repos (Docker, GitHub CLI, HashiCorp) added temporarily during fetch |
-| `apt/fetch.sh` | Full download: adds external repos, resolves dependencies, downloads all .debs, builds local repo with reprepro |
-| `apt/update.sh` | Incremental update: compares upstream vs cached versions, downloads only outdated packages |
-| `apt/conf/distributions` | reprepro config defining target distro (bookworm), architectures (amd64), repo metadata |
-| `binaries/binaries.list` | Non-apt binaries: name, download URL, type (binary/tarball/deb) |
-| `binaries/fetch.sh` | Downloads binaries to NAS. Extracts tarballs locally first (CIFS doesn't support symlinks) then copies with `-L` |
-| `lib/common.sh` | Shared constants: NAS paths, staging directory, logging, reprepro check |
-| `lib/nas.sh` | NAS mounting: credential setup, mount/unmount, package directory creation |
-
 ## NAS Storage
 
 ```

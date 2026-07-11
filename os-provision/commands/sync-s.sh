@@ -3,7 +3,7 @@
 MOUNT_POINT="/mnt/NAS2"
 SMB_SERVER="//192.168.1.97/nas2"
 CREDENTIALS="$HOME/.smbcredentials-nas2"
-SOURCE_FILE="$MOUNT_POINT/Server/Dokumentai/s/main.kdbx"
+SOURCE_FILE="$MOUNT_POINT/Server/main-subset/s/main.kdbx"
 DEST_FILE="$HOME/Desktop/main.kbdx"
 
 if ! mountpoint -q "$MOUNT_POINT" 2>/dev/null; then
