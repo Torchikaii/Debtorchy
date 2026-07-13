@@ -20,10 +20,6 @@ EOF
 }
 
 if [ ! -f "$CREDENTIALS" ]; then
-    if [ -n "$CI" ] || [ ! -t 0 ]; then
-        echo "WARN: SMB credentials not found, skipping NAS mount"
-        return 1 2>/dev/null || exit 1
-    fi
     setup_credentials
 fi
 
