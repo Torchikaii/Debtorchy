@@ -26,7 +26,10 @@ fi
 if ! mountpoint -q "$NAS_MOUNT" 2>/dev/null; then
     log "Mounting NAS..."
     sudo mount -t cifs "$NAS_BASE" "$NAS_MOUNT" \
-        -o credentials="$CREDENTIALS",uid=$(id -u),gid=$(id -g),iocharset=utf8,vers=3.0
+        -o credentials="$CREDENTIALS",uid=$(id -u),gid=$(id -g),iocharset=utf8,vers=3.0 || {
+        log "NAS mount failed — cannot connect to $NAS_BASE, skipping local repo setup"
+        exit 0
+    }
 fi
 
 if [ ! -d "$APT_REPO_DIR/dists" ]; then
