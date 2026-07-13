@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source "$(dirname "$0")/../commands/logging.sh"
+source "$(dirname "$0")/../commands/mount.sh"
 
 log "opencode.sh running"
 
@@ -9,7 +10,7 @@ if command -v opencode >/dev/null 2>&1; then
     exit 0
 fi
 
-NAS_CACHE="/mnt/NAS2/Server/homelab-assets/Debtorchy-assets/packages/binaries/opencode/opencode"
+NAS_CACHE="$TARGET_DIR/homelab-assets/Debtorchy-assets/packages/binaries/opencode/opencode"
 
 if [ -f "$NAS_CACHE" ]; then
     log "Installing opencode from local cache"

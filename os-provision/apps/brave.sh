@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source "$(dirname "$0")/../commands/logging.sh"
+source "$(dirname "$0")/../commands/mount.sh"
 
 log "brave.sh running"
 
@@ -9,7 +10,7 @@ if dpkg -s brave-browser >/dev/null 2>&1; then
     exit 0
 fi
 
-NAS_CACHE="/mnt/NAS2/Server/homelab-assets/Debtorchy-assets/packages/binaries/brave"
+NAS_CACHE="$TARGET_DIR/homelab-assets/Debtorchy-assets/packages/binaries/brave"
 
 if ls "$NAS_CACHE"/*.deb >/dev/null 2>&1; then
     log "Installing Brave from local cache"
