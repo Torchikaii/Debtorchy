@@ -4,7 +4,7 @@ source "$(dirname "$0")/../commands/logging.sh"
 
 log "qemu-kvm.sh running"
 
-if dpkg -s qemu-kvm >/dev/null 2>&1; then
+if command -v kvm >/dev/null 2>&1; then
     log "qemu-kvm already installed, skipping"
     exit 0
 fi

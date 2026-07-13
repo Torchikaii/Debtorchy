@@ -2,11 +2,23 @@
 
 set -e
 
+# ensure sudo is installed
+if ! command -v sudo >/dev/null 2>&1; then
+    apt-get update -qq
+    apt-get install -y -qq sudo
+fi
+
 # keep sudo prompt in front
 sudo date
 
 # configure local APT repo from NAS (if available)
-bash ./os-provision/commands/local-repo.sh
+# this step has to be skipped in CI
+if [ -z "$CI" ]; then
+    bash ./os-provision/commands/local-repo.sh
+fi
+
+# core system packages
+bash ./os-provision/apps/ca-certificates.sh
 
 # audio
 bash ./os-provision/apps/alsa-utils.sh

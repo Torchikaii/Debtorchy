@@ -1,6 +1,7 @@
 #!/bin/env bash
 
 source "$(dirname "$0")/../commands/logging.sh"
+source "$(dirname "$0")/../commands/mount.sh"
 
 log "starship.sh running"
 
@@ -9,7 +10,7 @@ if command -v starship >/dev/null 2>&1; then
     exit 0
 fi
 
-NAS_CACHE="/mnt/NAS2/Server/homelab-assets/Debtorchy-assets/packages/binaries/starship/starship"
+NAS_CACHE="$TARGET_DIR/homelab-assets/Debtorchy-assets/packages/binaries/starship/starship"
 
 if [ -f "$NAS_CACHE" ]; then
     log "Installing starship from local cache"
