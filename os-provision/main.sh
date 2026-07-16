@@ -2,6 +2,9 @@
 
 set -e
 
+SCRIPT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$SCRIPT_DIR"
+
 # ensure sudo is installed
 if ! command -v sudo >/dev/null 2>&1; then
     apt-get update -qq

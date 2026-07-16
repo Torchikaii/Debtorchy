@@ -18,6 +18,11 @@ fi
 
 echo "Building $OUTPUT from $ISO_DIR"
 
+echo "Copying os-provision/ into ISO..."
+cp -a "$SCRIPT_DIR/os-provision" "$ISO_DIR/os-provision"
+
+trap 'rm -rf "$ISO_DIR/os-provision"' EXIT
+
 xorriso \
   -as mkisofs \
   -r -J -joliet-long \
