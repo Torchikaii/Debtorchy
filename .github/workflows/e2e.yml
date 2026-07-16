@@ -76,60 +76,60 @@ jobs:
       - name: Verify installed apps
         run: |
           cat > /tmp/verify.sh << 'VERIFY'
-#!/bin/bash
-set -e
-failed=0
+          #!/bin/bash
+          set -e
+          failed=0
 
-dpkgs=(
-  alacritty alsa-utils bash-completion brave-browser
-  ca-certificates cifs-utils coreutils docker-ce
-  feh fonts-font-awesome fzf gh git i3
-  keepassxc less libvirt-clients libvirt-daemon-system
-  nfs-common openssh-server p7zip-full picom
-  pipewire pipewire-pulse polybar qemu-kvm
-  reprepro ripgrep rsync smbclient
-  terraform tmux tree vim-gtk3
-  virt-manager virtinst wireplumber xorriso
-)
+          dpkgs=(
+            alacritty alsa-utils bash-completion brave-browser
+            ca-certificates cifs-utils coreutils docker-ce
+            feh fonts-font-awesome fzf gh git i3
+            keepassxc less libvirt-clients libvirt-daemon-system
+            nfs-common openssh-server p7zip-full picom
+            pipewire pipewire-pulse polybar qemu-kvm
+            reprepro ripgrep rsync smbclient
+            terraform tmux tree vim-gtk3
+            virt-manager virtinst wireplumber xorriso
+          )
 
-for pkg in "${dpkgs[@]}"; do
-  if dpkg -s "$pkg" >/dev/null 2>&1; then
-    echo "OK  dpkg -s $pkg"
-  else
-    echo "FAIL dpkg -s $pkg"
-    failed=1
-  fi
-done
+          for pkg in "${dpkgs[@]}"; do
+            if dpkg -s "$pkg" >/dev/null 2>&1; then
+              echo "OK  dpkg -s $pkg"
+            else
+              echo "FAIL dpkg -s $pkg"
+              failed=1
+            fi
+          done
 
-bins=(starship opencode pyenv python3)
+          bins=(starship opencode pyenv python3)
 
-for bin in "${bins[@]}"; do
-  if command -v "$bin" >/dev/null 2>&1; then
-    echo "OK  command -v $bin -> $(command -v "$bin")"
-  else
-    echo "FAIL command -v $bin"
-    failed=1
-  fi
-done
+          for bin in "${bins[@]}"; do
+            if command -v "$bin" >/dev/null 2>&1; then
+              echo "OK  command -v $bin -> $(command -v "$bin")"
+            else
+              echo "FAIL command -v $bin"
+              failed=1
+            fi
+          done
 
-services=(docker ssh libvirtd)
+          services=(docker ssh libvirtd)
 
-for svc in "${services[@]}"; do
-  if systemctl is-enabled "$svc" >/dev/null 2>&1; then
-    echo "OK  systemctl is-enabled $svc"
-  else
-    echo "FAIL systemctl is-enabled $svc"
-    failed=1
-  fi
-done
+          for svc in "${services[@]}"; do
+            if systemctl is-enabled "$svc" >/dev/null 2>&1; then
+              echo "OK  systemctl is-enabled $svc"
+            else
+              echo "FAIL systemctl is-enabled $svc"
+              failed=1
+            fi
+          done
 
-if [ $failed -eq 1 ]; then
-  echo "Some checks failed"
-  exit 1
-fi
+          if [ $failed -eq 1 ]; then
+            echo "Some checks failed"
+            exit 1
+          fi
 
-echo "All checks passed"
-VERIFY
+          echo "All checks passed"
+          VERIFY
 
           sshpass -p admin scp -o StrictHostKeyChecking=no -P 2222 /tmp/verify.sh pc@localhost:/tmp/verify.sh
           sshpass -p admin ssh -p 2222 -o StrictHostKeyChecking=no pc@localhost "chmod +x /tmp/verify.sh && /tmp/verify.sh"
