@@ -28,6 +28,12 @@ fi
 
 echo "Starting VM '$VM_NAME' with $RAM MB RAM, $CPUS CPUs, ${DISK_SIZE}G disk"
 
+if [ -n "$CI" ]; then
+  GRAPHICS="--nographics --serial stdio"
+else
+  GRAPHICS="--graphics spice"
+fi
+
 sudo virt-install \
   --name "$VM_NAME" \
   --ram "$RAM" \
@@ -36,7 +42,7 @@ sudo virt-install \
   --disk path="$ISO",device=cdrom,bus=sata,readonly=yes,boot_order=2 \
   --os-variant debian13 \
   --network default \
-  --graphics spice \
+  $GRAPHICS \
   --boot menu=on \
   --noautoconsole
 
