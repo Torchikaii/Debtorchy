@@ -5,6 +5,11 @@ set -e
 source "$(dirname "$0")/../commands/logging.sh"
 source "$(dirname "$0")/mount.sh"
 
+if [ "$NAS_MOUNTED" != "true" ]; then
+    log "NAS not available, skipping local repo setup"
+    exit 0
+fi
+
 APT_REPO_DIR="$TARGET_DIR/homelab-assets/Debtorchy-assets/packages/apt-repo"
 LOCAL_REPO_LIST="/etc/apt/sources.list.d/debtorchy-local.list"
 LOCAL_REPO_PIN="/etc/apt/preferences.d/debtorchy-local"
