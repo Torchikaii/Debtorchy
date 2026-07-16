@@ -39,12 +39,10 @@ Boot the ISO via USB or PXE. The preseed configuration handles everything — pa
 
 #### 4. First boot provisioning
 
-After the install completes and the system reboots, clone the repo and run the orchestrator:
+The ISO build process bundles `os-provision/` into the ISO, and the preseed configuration copies it to `~/repos/Debtorchy/os-provision/` during install. After the first boot, run the orchestrator:
 
 ```bash
-git clone git@github.com:youruser/Debtorchy.git ~/repos/Debtorchy
-cd ~/repos/Debtorchy
-bash os-provision/main.sh
+bash ~/repos/Debtorchy/os-provision/main.sh
 ```
 
 This installs all programs, symlinks dotfiles, installs fonts, and syncs assets from the NAS. See [Provisioning](provisioning.md) for what happens under the hood.
