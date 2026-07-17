@@ -1,0 +1,159 @@
+name: E2E Test
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          lfs: true
+
+      - name: Add SSH server to preseed
+        run: |
+          sed -i 's|^d-i pkgsel/include string$|d-i pkgsel/include string openssh-server|' iso/preseed.cfg
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq xorriso isolinux libvirt-daemon-system libvirt-clients virtinst sshpass
+
+      - name: Cache ISO
+        id: cache-iso
+        uses: actions/cache@v5
+        with:
+          path: debtorchy.iso
+          key: iso-${{ hashFiles('iso/**') }}
+
+      - name: Build ISO
+        if: steps.cache-iso.outputs.cache-hit != 'true'
+        run: bash os-provision/commands/build-iso.sh
+
+      - name: Start libvirtd
+        run: |
+          sudo systemctl start libvirtd
+          sudo virsh net-autostart default
+
+      - name: Start VM
+        run: |
+          bash .github/scripts/start-vm-ci.sh
+          sudo touch /var/log/libvirt/qemu/debtorchy.log
+          sudo tail -f /var/log/libvirt/qemu/debtorchy.log &
+          TAIL_PID=$!
+          echo "Waiting for VM to get DHCP IP (Debian install may take 15+ minutes)..."
+          for i in $(seq 1 600); do
+            VM_IP=$(virsh domifaddr debtorchy --source arp 2>/dev/null | grep -oP '\d+\.\d+\.\d+\.\d+' | head -1)
+            if [ -n "$VM_IP" ]; then
+              echo "VM IP: $VM_IP after $((i * 3)) seconds"
+              break
+            fi
+            if [ $i -eq 600 ]; then
+              echo "Timeout waiting for DHCP"
+              kill $TAIL_PID 2>/dev/null || true
+              exit 1
+            fi
+            sleep 3
+          done
+          kill $TAIL_PID 2>/dev/null || true
+          sudo iptables -t nat -I PREROUTING -p tcp --dport 2222 -j DNAT --to-destination ${VM_IP}:22
+          sudo iptables -I FORWARD -p tcp -d ${VM_IP} --dport 22 -j ACCEPT
+
+      - name: Wait for SSH
+        run: |
+          echo "Waiting for SSH..."
+          for i in $(seq 1 180); do
+            if sshpass -p admin ssh -p 2222 -o ConnectTimeout=5 -o StrictHostKeyChecking=no pc@localhost true 2>/dev/null; then
+              echo "SSH ready after $((i * 10)) seconds"
+              break
+            fi
+            if [ $i -eq 180 ]; then
+              echo "Timeout waiting for SSH"
+              exit 1
+            fi
+            sleep 10
+          done
+
+      - name: Verify installed apps
+        run: |
+          cat > /tmp/verify.sh << 'VERIFY'
+          #!/bin/bash
+          set -e
+          failed=0
+
+          dpkgs=(
+            alacritty alsa-utils bash-completion brave-browser
+            ca-certificates cifs-utils coreutils docker-ce
+            feh fonts-font-awesome fzf gh git i3
+            keepassxc less libvirt-clients libvirt-daemon-system
+            nfs-common openssh-server p7zip-full picom
+            pipewire pipewire-pulse polybar qemu-kvm
+            reprepro ripgrep rsync smbclient
+            terraform tmux tree vim-gtk3
+            virt-manager virtinst wireplumber xorriso
+          )
+
+          for pkg in "${dpkgs[@]}"; do
+            if dpkg -s "$pkg" >/dev/null 2>&1; then
+              echo "OK  dpkg -s $pkg"
+            else
+              echo "FAIL dpkg -s $pkg"
+              failed=1
+            fi
+          done
+
+          bins=(starship opencode pyenv python3)
+
+          for bin in "${bins[@]}"; do
+            if command -v "$bin" >/dev/null 2>&1; then
+              echo "OK  command -v $bin -> $(command -v "$bin")"
+            else
+              echo "FAIL command -v $bin"
+              failed=1
+            fi
+          done
+
+          services=(docker ssh libvirtd)
+
+          for svc in "${services[@]}"; do
+            if systemctl is-enabled "$svc" >/dev/null 2>&1; then
+              echo "OK  systemctl is-enabled $svc"
+            else
+              echo "FAIL systemctl is-enabled $svc"
+              failed=1
+            fi
+          done
+
+          if [ $failed -eq 1 ]; then
+            echo "Some checks failed"
+            exit 1
+          fi
+
+          echo "All checks passed"
+          VERIFY
+
+          sshpass -p admin scp -o StrictHostKeyChecking=no -P 2222 /tmp/verify.sh pc@localhost:/tmp/verify.sh
+          sshpass -p admin ssh -p 2222 -o StrictHostKeyChecking=no pc@localhost "chmod +x /tmp/verify.sh && /tmp/verify.sh"
+
+      - name: Cleanup
+        if: always()
+        run: |
+          sudo virsh destroy debtorchy 2>/dev/null || true
+          sudo virsh undefine debtorchy --nvram 2>/dev/null || true
