@@ -55,6 +55,9 @@ jobs:
       - name: Start VM
         run: |
           bash .github/scripts/start-vm-ci.sh
+          sudo touch /var/log/libvirt/qemu/debtorchy.log
+          sudo tail -f /var/log/libvirt/qemu/debtorchy.log &
+          TAIL_PID=$!
           echo "Waiting for VM to get DHCP IP (Debian install may take 15+ minutes)..."
           for i in $(seq 1 600); do
             VM_IP=$(virsh domifaddr debtorchy --source arp 2>/dev/null | grep -oP '\d+\.\d+\.\d+\.\d+' | head -1)
@@ -64,10 +67,12 @@ jobs:
             fi
             if [ $i -eq 600 ]; then
               echo "Timeout waiting for DHCP"
+              kill $TAIL_PID 2>/dev/null || true
               exit 1
             fi
             sleep 3
           done
+          kill $TAIL_PID 2>/dev/null || true
           sudo iptables -t nat -I PREROUTING -p tcp --dport 2222 -j DNAT --to-destination ${VM_IP}:22
           sudo iptables -I FORWARD -p tcp -d ${VM_IP} --dport 22 -j ACCEPT
 
