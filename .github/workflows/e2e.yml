@@ -23,7 +23,9 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
+        with:
+          lfs: true
 
       - name: Add SSH server to preseed
         run: |
@@ -32,11 +34,11 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq xorriso libvirt-daemon-system libvirt-clients virtinst sshpass
+          sudo apt-get install -y -qq xorriso isolinux libvirt-daemon-system libvirt-clients virtinst sshpass
 
       - name: Cache ISO
         id: cache-iso
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: debtorchy.iso
           key: iso-${{ hashFiles('iso/**') }}
