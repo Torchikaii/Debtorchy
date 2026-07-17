@@ -52,13 +52,24 @@ jobs:
           sudo systemctl start libvirtd
           sudo virsh net-autostart default
 
-      - name: Configure SSH port forwarding
-        run: |
-          sudo virsh net-update default add-forward-port port \
-            --xml "<forwardport port='2222' proto='tcp' toport='22'/>"
-
       - name: Start VM
-        run: bash os-provision/commands/start-vm.sh
+        run: |
+          bash os-provision/commands/start-vm.sh
+          echo "Waiting for VM to get DHCP IP..."
+          for i in $(seq 1 30); do
+            VM_IP=$(virsh domifaddr debtorchy 2>/dev/null | grep -oP '\d+\.\d+\.\d+\.\d+' | head -1)
+            if [ -n "$VM_IP" ]; then
+              echo "VM IP: $VM_IP"
+              break
+            fi
+            if [ $i -eq 30 ]; then
+              echo "Timeout waiting for DHCP"
+              exit 1
+            fi
+            sleep 2
+          done
+          sudo iptables -t nat -I PREROUTING -p tcp --dport 2222 -j DNAT --to-destination ${VM_IP}:22
+          sudo iptables -I FORWARD -p tcp -d ${VM_IP} --dport 22 -j ACCEPT
 
       - name: Wait for SSH
         run: |
