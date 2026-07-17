@@ -54,7 +54,7 @@ jobs:
 
       - name: Configure SSH port forwarding
         run: |
-          sudo virsh net-update default add-forward-port \
+          sudo virsh net-update default add-forward-port port \
             --xml "<forwardport port='2222' proto='tcp' toport='22'/>"
 
       - name: Start VM
