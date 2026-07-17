@@ -19,7 +19,7 @@ permissions:
 jobs:
   e2e:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
 
     steps:
       - name: Checkout repository
@@ -55,18 +55,18 @@ jobs:
       - name: Start VM
         run: |
           bash .github/scripts/start-vm-ci.sh
-          echo "Waiting for VM to get DHCP IP..."
-          for i in $(seq 1 30); do
-            VM_IP=$(virsh domifaddr debtorchy 2>/dev/null | grep -oP '\d+\.\d+\.\d+\.\d+' | head -1)
+          echo "Waiting for VM to get DHCP IP (Debian install may take 15+ minutes)..."
+          for i in $(seq 1 600); do
+            VM_IP=$(virsh domifaddr debtorchy --source arp 2>/dev/null | grep -oP '\d+\.\d+\.\d+\.\d+' | head -1)
             if [ -n "$VM_IP" ]; then
-              echo "VM IP: $VM_IP"
+              echo "VM IP: $VM_IP after $((i * 3)) seconds"
               break
             fi
-            if [ $i -eq 30 ]; then
+            if [ $i -eq 600 ]; then
               echo "Timeout waiting for DHCP"
               exit 1
             fi
-            sleep 2
+            sleep 3
           done
           sudo iptables -t nat -I PREROUTING -p tcp --dport 2222 -j DNAT --to-destination ${VM_IP}:22
           sudo iptables -I FORWARD -p tcp -d ${VM_IP} --dport 22 -j ACCEPT
