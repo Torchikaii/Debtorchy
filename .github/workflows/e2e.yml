@@ -54,7 +54,7 @@ jobs:
 
       - name: Start VM
         run: |
-          bash os-provision/commands/start-vm.sh
+          bash .github/scripts/start-vm-ci.sh
           echo "Waiting for VM to get DHCP IP..."
           for i in $(seq 1 30); do
             VM_IP=$(virsh domifaddr debtorchy 2>/dev/null | grep -oP '\d+\.\d+\.\d+\.\d+' | head -1)
