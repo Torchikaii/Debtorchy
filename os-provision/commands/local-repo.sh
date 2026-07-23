@@ -13,7 +13,7 @@ if [ "$NAS_MOUNTED" != "true" ]; then
     if [ -f "$LOCAL_REPO_LIST" ]; then
         log "NAS unavailable — removing stale local repo config"
         sudo rm -f "$LOCAL_REPO_LIST" "$LOCAL_REPO_PIN"
-        sudo apt-get update -qq
+        sudo apt-get update -qq 2>/dev/null || true
     fi
     log "NAS not available, skipping local repo setup"
     exit 0

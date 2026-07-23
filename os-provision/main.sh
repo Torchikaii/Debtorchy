@@ -20,6 +20,18 @@ if [ -z "$CI" ]; then
     bash ./os-provision/commands/local-repo.sh
 fi
 
+cleanup_local_repo() {
+    if [ "$NAS_MOUNTED" != "true" ]; then
+        local local_repo_list="/etc/apt/sources.list.d/debtorchy-local.list"
+        local local_repo_pin="/etc/apt/preferences.d/debtorchy-local"
+        if [ -f "$local_repo_list" ]; then
+            sudo rm -f "$local_repo_list" "$local_repo_pin"
+            sudo apt-get update -qq 2>/dev/null || true
+        fi
+    fi
+}
+trap cleanup_local_repo EXIT
+
 # core system packages
 bash ./os-provision/apps/ca-certificates.sh
 
