@@ -5,14 +5,19 @@ set -e
 source "$(dirname "$0")/../commands/logging.sh"
 source "$(dirname "$0")/mount.sh"
 
+LOCAL_REPO_LIST="/etc/apt/sources.list.d/debtorchy-local.list"
+LOCAL_REPO_PIN="/etc/apt/preferences.d/debtorchy-local"
+APT_REPO_DIR="$TARGET_DIR/homelab-assets/Debtorchy-assets/packages/apt-repo"
+
 if [ "$NAS_MOUNTED" != "true" ]; then
+    if [ -f "$LOCAL_REPO_LIST" ]; then
+        log "NAS unavailable — removing stale local repo config"
+        sudo rm -f "$LOCAL_REPO_LIST" "$LOCAL_REPO_PIN"
+        sudo apt-get update -qq
+    fi
     log "NAS not available, skipping local repo setup"
     exit 0
 fi
-
-APT_REPO_DIR="$TARGET_DIR/homelab-assets/Debtorchy-assets/packages/apt-repo"
-LOCAL_REPO_LIST="/etc/apt/sources.list.d/debtorchy-local.list"
-LOCAL_REPO_PIN="/etc/apt/preferences.d/debtorchy-local"
 
 if [ ! -d "$APT_REPO_DIR/dists" ]; then
     log "Local APT repo not found on NAS, skipping"
