@@ -29,7 +29,11 @@ if [ ! -d "$MOUNT_POINT" ]; then
 fi
 
 if mountpoint -q "$MOUNT_POINT" 2>/dev/null; then
-    NAS_MOUNTED=true
+    if timeout 3 stat "$TARGET_DIR" >/dev/null 2>&1; then
+        NAS_MOUNTED=true
+    else
+        echo "WARNING: NAS mount stale (server unreachable), treating as unavailable"
+    fi
 elif sudo mount -t cifs "$SERVER" "$MOUNT_POINT" \
     -o credentials="$CREDENTIALS",uid=$(id -u),gid=$(id -g),iocharset=utf8,vers=3.0 2>/dev/null; then
     NAS_MOUNTED=true

@@ -13,6 +13,13 @@ exec --no-startup-id dex --autostart --environment i3
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
 
+# hotfix, solve "setx dpms force off" command make monitor backlight to fail
+exec --no-startup-id xset -dpms
+exec --no-startup-id xset s 600 600
+
+# start polkit agent
+exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
+
 # set wallpaper
 exec --no-startup-id feh --bg-fill ~/repos/Debtorchy/os-provision/assets/backgrounds/wallpaper.jpg
 
