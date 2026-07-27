@@ -5,4 +5,4 @@
 starship|https://github.com/starship/starship/releases/latest/download/starship-x86_64-unknown-linux-musl.tar.gz|tarball
 opencode|https://github.com/anomalyco/opencode/releases/download/v1.17.18/opencode-linux-x64.tar.gz|tarball
 pyenv|https://github.com/pyenv/pyenv/archive/refs/heads/master.tar.gz|tarball
-brave|https://github.com/brave/brave-browser/releases/tag/v1.92.139/brave-browser_1.92.139_amd64.deb|deb
+brave|https://github.com/brave/brave-browser/releases/download/v1.92.139/brave-browser_1.92.139_amd64.deb|deb
