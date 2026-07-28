@@ -18,10 +18,11 @@ fi
 
 echo "Building $OUTPUT from $ISO_DIR"
 
-echo "Copying os-provision/ into ISO..."
+echo "Copying os-provision/ and package-manager/ into ISO..."
 cp -a "$SCRIPT_DIR/os-provision" "$ISO_DIR/os-provision"
+cp -a "$SCRIPT_DIR/package-manager" "$ISO_DIR/package-manager"
 
-trap 'rm -rf "$ISO_DIR/os-provision"' EXIT
+trap 'rm -rf "$ISO_DIR/os-provision" "$ISO_DIR/package-manager"' EXIT
 
 xorriso \
   -as mkisofs \

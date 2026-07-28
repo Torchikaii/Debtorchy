@@ -69,8 +69,3 @@ Dotfiles for i3, polybar, alacritty, picom, starship, vim, bash, and opencode ar
 
 ---
 
-### What's Next
-
-- [Architecture](architecture.md) — How all the pieces fit together
-- [Customization](customization.md) — Adding your own apps, dotfiles, and assets
-- [Troubleshooting](troubleshooting.md) — Common issues and fixes

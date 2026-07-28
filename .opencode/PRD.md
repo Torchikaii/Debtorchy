@@ -28,6 +28,7 @@ Build and maintain a complete, autonomous operating system deployment pipeline w
 3. **Idempotency** — All provisioning scripts are safe to re-run. No duplicate entries, no errors on re-execution.
 4. **One Source of Truth** — The repository is the single authoritative source for the OS image, provisioning logic, and documentation.
 5. **Self-Contained** — Minimal external dependencies. The repo holds everything needed to build and deploy.
+6. **Self-Hosting** — The OS carries the tools to rebuild itself. Like a self-compiling compiler, a running Debtorchy system contains everything needed to produce a new Debtorchy ISO, provision a VM, and iterate on itself.
 
 ---
 
@@ -137,6 +138,17 @@ Debtorchy/
 | **Single Responsibility** | Each `.sh` file handles one app or concern |
 | **Idempotent Scripts** | All scripts check state before modifying |
 | **Preseed Automation** | Debian installer fully configured via preseed |
+
+### Command Execution Context
+
+Commands in `os-provision/commands/` run in two distinct contexts:
+
+| Context | Commands | Runs on | Purpose |
+|---------|----------|---------|---------|
+| **Build-time** | `build-iso.sh`, `start-vm.sh` | Host machine (running Debtorchy) | Produce ISO, launch VMs |
+| **Run-time** | `local-repo.sh`, `mount.sh`, `logging.sh`, `server.sh`, `sync-s.sh` | Target VM or bare metal | Provision and configure the OS |
+
+Build-time commands assume the host has `xorriso`, `virt-install`, etc. Run-time commands assume a fresh Debian install with minimal packages.
 
 ---
 

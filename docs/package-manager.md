@@ -171,8 +171,3 @@ fi
 
 ---
 
-### What's Next
-
-- [Provisioning](provisioning.md) — How scripts use the cached packages
-- [Customization](customization.md) — Adding your own packages and binaries
-- [Architecture](architecture.md) — Full system overview

@@ -160,8 +160,3 @@ bash os-provision/dotfiles.sh
 
 ---
 
-### What's Next
-
-- [Getting Started](getting-started.md) — Full walkthrough from scratch
-- [Provisioning](provisioning.md) — Understanding the script system
-- [Architecture](architecture.md) — How everything fits together
