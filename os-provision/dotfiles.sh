@@ -47,4 +47,8 @@ ln -s ~/repos/Debtorchy/os-provision/dotfiles/opencode/themes ~/.config/opencode
 rm -f ~/.config/starship.toml
 ln -s ~/repos/Debtorchy/os-provision/dotfiles/starship/starship.toml ~/.config/starship.toml
 
+# x
+rm -f ~/.xinitrc
+ln -s ~/repos/Debtorchy/os-provision/dotfiles/x/xinitrc ~/.xinitrc
+
 log "dotfiles.sh completed"

@@ -39,4 +39,6 @@ virt-manager
 virtinst
 wget
 wireplumber
+xinit
+xorg
 xorriso
