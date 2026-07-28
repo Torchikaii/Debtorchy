@@ -23,6 +23,7 @@ fi
 
 # core system packages
 bash ./os-provision/apps/ca-certificates.sh
+bash ./os-provision/apps/gnupg.sh
 
 # audio
 bash ./os-provision/apps/alsa-utils.sh
@@ -78,6 +79,7 @@ bash ./os-provision/apps/tmux.sh
 
 # package management
 bash ./os-provision/apps/reprepro.sh
+bash ./os-provision/apps/software-properties-common.sh
 
 # system
 bash ./os-provision/apps/brave.sh
