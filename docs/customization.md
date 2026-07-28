@@ -195,8 +195,3 @@ All scripts assume the repo lives at `~/repos/Debtorchy`. To change this:
 
 ---
 
-### What's Next
-
-- [Provisioning](provisioning.md) — Understanding the full script system
-- [Package Manager](package-manager.md) — Caching new packages on NAS
-- [Troubleshooting](troubleshooting.md) — Common issues and fixes

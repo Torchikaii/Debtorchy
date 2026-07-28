@@ -175,8 +175,3 @@ See [Package Manager](package-manager.md) for the full picture.
 
 ---
 
-### What's Next
-
-- [Provisioning](provisioning.md) — Deep dive into the os-provision system
-- [Package Manager](package-manager.md) — How offline caching works
-- [Customization](customization.md) — Adding your own apps and dotfiles

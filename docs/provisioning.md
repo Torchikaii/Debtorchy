@@ -191,8 +191,3 @@ The bundled font is **Code New Roman Nerd Font** (v3.4.0). Font Awesome icons ar
 
 ---
 
-### What's Next
-
-- [Customization](customization.md) — Adding your own apps, dotfiles, and assets
-- [Package Manager](package-manager.md) — How the offline cache works
-- [Architecture](architecture.md) — Full system overview

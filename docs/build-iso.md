@@ -73,8 +73,3 @@ The `.gitignore` excludes temporary extraction folders.
 
 ---
 
-### Read Further
-
-- [Getting Started](getting-started.md) — Full installation walkthrough
-- [Architecture](architecture.md) — How the ISO fits into the system
-- [Troubleshooting](troubleshooting.md) — Common issues
