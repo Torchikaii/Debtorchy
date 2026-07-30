@@ -24,5 +24,6 @@ sudo sed -i 's/^PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config
 sudo sed -i 's/^#PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
 sudo sed -i 's/^PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
 sudo systemctl enable ssh --now
+sudo systemctl restart ssh
 
 log "ssh.sh completed"
