@@ -36,6 +36,8 @@ bash ./os-provision/apps/feh.sh
 bash ./os-provision/apps/font-awesome.sh
 bash ./os-provision/apps/xorg.sh
 bash ./os-provision/apps/xinit.sh
+bash ./os-provision/apps/xserver-xorg-input-all.sh
+bash ./os-provision/apps/x11-xserver-utils.sh
 bash ./os-provision/apps/i3.sh
 bash ./os-provision/apps/picom.sh
 bash ./os-provision/apps/polybar.sh # needs font-awesome.sh

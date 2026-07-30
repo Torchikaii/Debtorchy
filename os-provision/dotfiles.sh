@@ -4,51 +4,53 @@ source "$(dirname "$0")/commands/logging.sh"
 
 log "dotfiles.sh running"
 
+HOME_DIR="/home/pc"
+
 # alacritty
-mkdir -p ~/.config/alacritty
-rm -f ~/.config/alacritty/alacritty.toml
-ln -s ~/repos/Debtorchy/os-provision/dotfiles/alacritty/alacritty.toml ~/.config/alacritty/alacritty.toml
+mkdir -p "$HOME_DIR/.config/alacritty"
+rm -f "$HOME_DIR/.config/alacritty/alacritty.toml"
+ln -s "$HOME_DIR/repos/Debtorchy/os-provision/dotfiles/alacritty/alacritty.toml" "$HOME_DIR/.config/alacritty/alacritty.toml"
 
 # bash
-rm -f ~/.bashrc
-ln -s ~/repos/Debtorchy/os-provision/dotfiles/bash/.bashrc ~/.bashrc
+rm -f "$HOME_DIR/.bashrc"
+ln -s "$HOME_DIR/repos/Debtorchy/os-provision/dotfiles/bash/.bashrc" "$HOME_DIR/.bashrc"
 
 # vim
-rm -f ~/.vimrc
-ln -s ~/repos/Debtorchy/os-provision/dotfiles/vim/.vimrc ~/.vimrc
-rm -rf ~/.vim
-ln -s ~/repos/Debtorchy/os-provision/dotfiles/vim/.vim ~/.vim
+rm -f "$HOME_DIR/.vimrc"
+ln -s "$HOME_DIR/repos/Debtorchy/os-provision/dotfiles/vim/.vimrc" "$HOME_DIR/.vimrc"
+rm -rf "$HOME_DIR/.vim"
+ln -s "$HOME_DIR/repos/Debtorchy/os-provision/dotfiles/vim/.vim" "$HOME_DIR/.vim"
 
 # i3
-mkdir -p ~/.config/i3
-rm -f ~/.config/i3/config
-ln -s ~/repos/Debtorchy/os-provision/dotfiles/i3/config ~/.config/i3/config
+mkdir -p "$HOME_DIR/.config/i3"
+rm -f "$HOME_DIR/.config/i3/config"
+ln -s "$HOME_DIR/repos/Debtorchy/os-provision/dotfiles/i3/config" "$HOME_DIR/.config/i3/config"
 
 # polybar
-mkdir -p ~/.config/polybar
-rm -f ~/.config/polybar/config
-ln -s ~/repos/Debtorchy/os-provision/dotfiles/polybar/config ~/.config/polybar/config
+mkdir -p "$HOME_DIR/.config/polybar"
+rm -f "$HOME_DIR/.config/polybar/config"
+ln -s "$HOME_DIR/repos/Debtorchy/os-provision/dotfiles/polybar/config" "$HOME_DIR/.config/polybar/config"
 
 # picom
-mkdir -p ~/.config/picom
-rm -f ~/.config/picom/picom.conf
-ln -s ~/repos/Debtorchy/os-provision/dotfiles/picom/picom.conf ~/.config/picom/picom.conf
+mkdir -p "$HOME_DIR/.config/picom"
+rm -f "$HOME_DIR/.config/picom/picom.conf"
+ln -s "$HOME_DIR/repos/Debtorchy/os-provision/dotfiles/picom/picom.conf" "$HOME_DIR/.config/picom/picom.conf"
 
 # opencode
-mkdir -p ~/.config/opencode
-rm -f ~/.config/opencode/opencode.json
-ln -s ~/repos/Debtorchy/os-provision/dotfiles/opencode/opencode.json ~/.config/opencode/opencode.json
-rm -f ~/.config/opencode/tui.json
-ln -s ~/repos/Debtorchy/os-provision/dotfiles/opencode/tui.json ~/.config/opencode/tui.json
-rm -rf ~/.config/opencode/themes
-ln -s ~/repos/Debtorchy/os-provision/dotfiles/opencode/themes ~/.config/opencode/themes
+mkdir -p "$HOME_DIR/.config/opencode"
+rm -f "$HOME_DIR/.config/opencode/opencode.json"
+ln -s "$HOME_DIR/repos/Debtorchy/os-provision/dotfiles/opencode/opencode.json" "$HOME_DIR/.config/opencode/opencode.json"
+rm -f "$HOME_DIR/.config/opencode/tui.json"
+ln -s "$HOME_DIR/repos/Debtorchy/os-provision/dotfiles/opencode/tui.json" "$HOME_DIR/.config/opencode/tui.json"
+rm -rf "$HOME_DIR/.config/opencode/themes"
+ln -s "$HOME_DIR/repos/Debtorchy/os-provision/dotfiles/opencode/themes" "$HOME_DIR/.config/opencode/themes"
 
 # starship
-rm -f ~/.config/starship.toml
-ln -s ~/repos/Debtorchy/os-provision/dotfiles/starship/starship.toml ~/.config/starship.toml
+rm -f "$HOME_DIR/.config/starship.toml"
+ln -s "$HOME_DIR/repos/Debtorchy/os-provision/dotfiles/starship/starship.toml" "$HOME_DIR/.config/starship.toml"
 
 # x
-rm -f ~/.xinitrc
-ln -s ~/repos/Debtorchy/os-provision/dotfiles/x/xinitrc ~/.xinitrc
+rm -f "$HOME_DIR/.xinitrc"
+ln -s "$HOME_DIR/repos/Debtorchy/os-provision/dotfiles/x/xinitrc" "$HOME_DIR/.xinitrc"
 
 log "dotfiles.sh completed"

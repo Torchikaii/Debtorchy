@@ -39,6 +39,8 @@ virt-manager
 virtinst
 wget
 wireplumber
+x11-xserver-utils
 xinit
+xserver-xorg-input-all
 xorg
 xorriso
