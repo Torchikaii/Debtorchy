@@ -23,6 +23,7 @@ fi
 
 # core system packages
 bash ./os-provision/apps/ca-certificates.sh
+bash ./os-provision/apps/gnupg.sh
 
 # audio
 bash ./os-provision/apps/alsa-utils.sh
@@ -33,6 +34,11 @@ bash ./os-provision/apps/wireplumber.sh
 # desktop
 bash ./os-provision/apps/feh.sh
 bash ./os-provision/apps/font-awesome.sh
+bash ./os-provision/apps/xorg.sh
+bash ./os-provision/apps/xinit.sh
+bash ./os-provision/apps/xserver-xorg-input-all.sh
+bash ./os-provision/apps/qemu-keyboard-fix.sh
+bash ./os-provision/apps/x11-xserver-utils.sh
 bash ./os-provision/apps/i3.sh
 bash ./os-provision/apps/picom.sh
 bash ./os-provision/apps/polybar.sh # needs font-awesome.sh
@@ -76,6 +82,7 @@ bash ./os-provision/apps/tmux.sh
 
 # package management
 bash ./os-provision/apps/reprepro.sh
+bash ./os-provision/apps/software-properties-common.sh
 
 # system
 bash ./os-provision/apps/brave.sh
