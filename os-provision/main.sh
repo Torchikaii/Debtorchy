@@ -40,6 +40,7 @@ bash ./os-provision/apps/xserver-xorg-input-all.sh
 bash ./os-provision/apps/qemu-keyboard-fix.sh
 bash ./os-provision/apps/x11-xserver-utils.sh
 bash ./os-provision/apps/i3.sh
+bash ./os-provision/apps/dmenu.sh
 bash ./os-provision/apps/picom.sh
 bash ./os-provision/apps/polybar.sh # needs font-awesome.sh
 

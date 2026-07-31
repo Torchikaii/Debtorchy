@@ -1,7 +1,7 @@
 # Product Requirements Document: Debtorchy
 
-**Version:** 1.0  
-**Last Updated:** 2026-07-08
+**Version:** 1.1  
+**Last Updated:** 2026-07-31
 
 ---
 
@@ -10,6 +10,8 @@
 Debtorchy is a monorepo that packages a complete Debian operating system together with its provisioning scripts, configuration, and documentation. The repository contains the full extracted Debian netinst ISO (versioned via git-lfs), post-install automation scripts, and build tooling — everything needed to produce a bootable, fully autonomous Debian installer.
 
 The core value proposition is **full OS reproducibility**: a computer running Debtorchy carries no permanent important data. All user data, credentials, and assets live on redundant file servers. The OS itself is rebuilt and reprovisioned from this repo on every install, making each machine a stateless, disposable compute node that can be recreated at any time.
+
+In its ideal state the pipeline is completely hands-free: building the installer optionally takes credentials and bakes them in, the OS installs without interaction, provisioning runs automatically on first boot, and every change is verified by a layered automated test strategy (static analysis, unit tests against a mocked file server, and end-to-end VM validation).
 
 **Core Value Proposition:** One repository to rule the entire OS — from bare metal to productive workstation, fully automated, fully reproducible.
 
@@ -23,12 +25,13 @@ Build and maintain a complete, autonomous operating system deployment pipeline w
 
 ### Core Principles
 
-1. **Full Automation** — OS installation requires zero human interaction. Preseed configuration handles partitioning, user creation, and initial setup. Post-install scripts install programs, symlink dotfiles, and synchronise assets from file servers.
+1. **Full Automation** — OS installation requires zero human interaction. Preseed configuration handles partitioning, user creation, and initial setup. Post-install scripts install programs, symlink dotfiles, and synchronise assets from file servers. First-boot provisioning starts automatically.
 2. **Reproducibility** — Every install produces an identical system. No permanent state lives on the machine; all important data resides on redundant file servers.
 3. **Idempotency** — All provisioning scripts are safe to re-run. No duplicate entries, no errors on re-execution.
 4. **One Source of Truth** — The repository is the single authoritative source for the OS image, provisioning logic, and documentation.
 5. **Self-Contained** — Minimal external dependencies. The repo holds everything needed to build and deploy.
 6. **Self-Hosting** — The OS carries the tools to rebuild itself. Like a self-compiling compiler, a running Debtorchy system contains everything needed to produce a new Debtorchy ISO, provision a VM, and iterate on itself.
+7. **Testability** — Critical flows are covered by automated tests (static analysis, unit tests with a mocked file server, end-to-end VM validation) so changes can be verified safely as the project grows.
 
 ---
 
@@ -47,9 +50,10 @@ Build and maintain a complete, autonomous operating system deployment pipeline w
 | Problem | Solution |
 |---------|----------|
 | Time-consuming OS reinstallation | Fully autonomous preseed install |
-| Manual post-install setup | Automated provisioning scripts |
+| Manual post-install setup | Automated, automatic first-boot provisioning |
 | Scattered dotfiles and config | Centralised repo with symlinks |
 | Irreproducible environments | Version-controlled OS image |
+| Untrusted changes breaking installs | Layered automated testing |
 
 ---
 
@@ -58,18 +62,23 @@ Build and maintain a complete, autonomous operating system deployment pipeline w
 ### In Scope ✅
 
 - [ ] **ISO management** — Extracted Debian netinst ISO stored in `iso/` and version-controlled via git-lfs
-- [ ] **ISO rebuilding** — `docs/build-iso.md` documents the xorriso command to produce a bootable ISO from the `iso/` directory
-- [ ] **Preseed configuration** — `preseed.cfg` is baked into the ISO, enabling fully autonomous installation with no human intervention
-- [ ] **Post-install provisioning** — `os-provision/` scripts run automatically after first boot to install programs, dotfiles, and assets
+- [ ] **ISO rebuilding** — A build script produces a bootable ISO from the repository contents
+- [ ] **Preseed configuration** — Baked into the ISO, enabling fully autonomous installation with no human intervention
+- [ ] **Post-install provisioning** — Scripts that install programs, dotfiles, and assets; run automatically after first boot
+- [ ] **Fully autonomous first boot** — Auto-login into a provisioning session that runs the post-install pipeline immediately, with no manual intervention
 - [ ] **File server synchronisation** — Scripts mount NAS, sync password databases, fonts, wallpapers, and other assets from redundant file servers
+- [ ] **Credential management** — Build-time baking of NAS credentials and password overrides with fallback to defaults; credentials persisted only after successful authentication
+- [ ] **Centralized configuration** — A single canonical source for environment and configuration additions (e.g. `PATH`), managed idempotently by installers
+- [ ] **Automated testing** — Static analysis, unit tests against a mocked file server, and an end-to-end VM test driver
 - [ ] **PXE boot** — The OS can be installed over the network via PXE in addition to USB
-- [ ] **Documentation** — `docs/` contains build instructions, usage guides, and reference material
+- [ ] **Documentation** — Build instructions, usage guides, and reference material
 
 ### Out of Scope ❌
 
 - [ ] GUI applications for system management (CLI-first approach)
 - [ ] Cross-platform support (Debian only)
 - [ ] Enterprise fleet management (targeting individual power users)
+- [ ] Full end-to-end testing on hosted CI runners (requires a self-hosted runner with KVM)
 
 ---
 
@@ -89,6 +98,12 @@ Build and maintain a complete, autonomous operating system deployment pipeline w
 
 **US-007:** As a power user, I want the ISO content version-controlled with git-lfs, so I can track changes to the OS image over time.
 
+**US-008:** As a power user, I want provisioning to start automatically on first boot, so I never have to log in or run anything manually.
+
+**US-009:** As a power user, I want optional credentials (NAS access, passwords) baked in at build time, so the install stays hands-free without committing secrets to the repository.
+
+**US-010:** As a power user, I want changes verified by automated tests before they ship, so I can trust that new changes don't break provisioning.
+
 ---
 
 ## 6. Architecture & Design
@@ -98,33 +113,26 @@ Build and maintain a complete, autonomous operating system deployment pipeline w
 ```
 Debtorchy/
 ├── iso/              # Extracted Debian netinst ISO (git-lfs tracked)
-│   ├── boot/
-│   ├── debian -> .   # ISO circular symlink (preserved from original)
-│   ├── dists/
-│   ├── install.amd/
-│   ├── isolinux/
-│   ├── pool/
-│   └── ...
-├── os-provision/     # Post-install scripts
-│   ├── main.sh       # Orchestrator (runs after OS install)
-│   ├── apps/         # Individual app installers
-│   ├── commands/     # Utility commands (NAS mount, sync, logging)
-│   ├── dotfiles/     # Config files (symlinked to ~/.config)
-│   ├── dotfiles.sh   # Symlink creation
-│   ├── fonts.sh      # Nerd font symlinking
-│   └── python/       # Python package installation
-├── docs/             # Usage documentation
-│   └── build-iso.md  # ISO build instructions
+│   └── preseed.cfg   # Autonomous install configuration
+├── os-provision/     # Post-install provisioning
+│   ├── apps/         # One installer per application
+│   ├── commands/     # Shared utilities (mount, repository, build, VM)
+│   ├── dotfiles/     # Config files symlinked into the user's home
+│   └── assets/       # Fonts, wallpapers
+├── package-manager/  # Offline apt repo + binary cache on the file server
+├── tests/            # Automated tests (mocked file server, helpers)
+├── docs/             # Documentation
 └── README.md         # Repository entry point
 ```
 
 ### Data Flow
 
 ```
-1. Build ISO        → xorriso packages iso/ → debtorchy.iso
+1. Build ISO        → build tool packages iso/ → debtorchy.iso
+                     (optionally bakes credentials, falls back to defaults)
 2. Boot ISO         → USB stick or PXE
 3. Preseed install  → Fully autonomous Debian installation
-4. First boot       → os-provision/main.sh runs automatically
+4. First boot       → Auto-login, provisioning starts automatically
 5. Provisioning     → Programs installed, dotfiles symlinked,
                        assets synced from file server
 6. Ready            → Productive workstation, no permanent local data
@@ -134,21 +142,11 @@ Debtorchy/
 
 | Pattern | Application |
 |---------|-------------|
-| **Facade** | `main.sh` orchestrates all sub-scripts |
-| **Single Responsibility** | Each `.sh` file handles one app or concern |
+| **Facade** | An orchestrator runs all provisioning steps in order |
+| **Single Responsibility** | Each installer handles one app or concern |
 | **Idempotent Scripts** | All scripts check state before modifying |
 | **Preseed Automation** | Debian installer fully configured via preseed |
-
-### Command Execution Context
-
-Commands in `os-provision/commands/` run in two distinct contexts:
-
-| Context | Commands | Runs on | Purpose |
-|---------|----------|---------|---------|
-| **Build-time** | `build-iso.sh`, `start-vm.sh` | Host machine (running Debtorchy) | Produce ISO, launch VMs |
-| **Run-time** | `local-repo.sh`, `mount.sh`, `logging.sh`, `server.sh`, `sync-s.sh` | Target VM or bare metal | Provision and configure the OS |
-
-Build-time commands assume the host has `xorriso`, `virt-install`, etc. Run-time commands assume a fresh Debian install with minimal packages.
+| **Test Doubles** | A mocked file server substitutes the real NAS in unit tests |
 
 ---
 
@@ -163,6 +161,9 @@ Build-time commands assume the host has `xorriso`, `virt-install`, etc. Run-time
 | File Server Access | CIFS/SMB, NFS |
 | Preseed | debian-installer preseed configuration |
 | PXE | dnsmasq / isc-dhcp-server + tftpd-hpa |
+| Static Analysis | shellcheck |
+| Unit Testing | bats (Bash automated testing) |
+| VM Automation | virt-install / libvirt |
 
 ---
 
@@ -172,16 +173,17 @@ Build-time commands assume the host has `xorriso`, `virt-install`, etc. Run-time
 
 | Utility | Method |
 |---------|--------|
-| NAS Mounting | Stored credentials (`~/.smbcredentials-*`) |
+| NAS Mounting | Credentials baked into the ISO at build time or stored locally; persisted only after a successful mount |
 | Password Database | KeePassXC (`main.kdbx`), synced from file server |
 | Git | SSH keys / credential helpers |
 | General | No sensitive data in repository |
 
 ### Configuration Management
 
-- Dotfiles stored in `os-provision/dotfiles/` and symlinked to `~/.config`
+- Dotfiles stored in the provisioning tree and symlinked into the user's home
 - Preseed configuration baked into ISO for hands-off install
-- File server paths and credentials configured via environment variables or credential files
+- Centralized environment/configuration additions (e.g. `PATH`) managed from a single canonical source by idempotent helpers
+- Credentials provided at build time, never committed to the repository; empty input falls back to defaults
 
 ### Security Scope
 
@@ -189,26 +191,50 @@ Build-time commands assume the host has `xorriso`, `virt-install`, etc. Run-time
 - No API keys or tokens committed
 - `.gitignore` excludes sensitive files
 - Credentials handled by local credential files with `chmod 600`
+- Baked credentials are readable by anyone holding the ISO — acceptable for a trusted homelab, and avoidable by leaving the prompts empty
 
 ---
 
-## 9. API Specification
+## 9. Testing Strategy
+
+Automated testing protects the reproducibility guarantee as the project grows. Tests are organised in layers, each validating a different risk:
+
+| Layer | Scope | Runs |
+|-------|-------|------|
+| **Static analysis** | Syntax and quality linting of all shell scripts | CI, on every change |
+| **Unit tests (mocked file server)** | Individual utilities (mounting, local repository setup, asset sync, configuration) against a local fixture that mirrors the file server layout — no real NAS or internet required | CI and locally |
+| **End-to-end (VM)** | Full pipeline: build the ISO, boot it in a VM, verify provisioning completes and the system is usable, then tear down | Locally via a driver script; CI requires a self-hosted runner with KVM |
+
+Test principles:
+
+- **Isolation** — unit tests must not depend on a real NAS, internet access, or a real install.
+- **Idempotency coverage** — every script's re-run safety is exercised by the tests.
+- **Failure realism** — tests cover degraded paths (file server unreachable, stale credentials, empty credential input), not just happy paths.
+- **Regression safety** — changes must not silently break previously working behaviour. The exact regression-testing mechanism is not decided yet.
+
+---
+
+## 10. API Specification
 
 Not applicable — this is a collection of build tooling and provisioning scripts, not an API-driven service.
 
 ---
 
-## 10. Success Criteria
+## 11. Success Criteria
 
 ### Functional Acceptance Criteria ✅
 
 - [ ] `xorriso` command produces a bootable ISO from `iso/` directory
 - [ ] ISO installs Debian fully autonomously with preseed configuration
-- [ ] `os-provision/main.sh` executes without errors on a fresh Debian system
+- [ ] Provisioning runs automatically on first boot with zero interaction
+- [ ] Build accepts optional credentials and falls back to defaults when input is empty
 - [ ] All app installers create working installations
 - [ ] Dotfile symlinks resolve correctly
 - [ ] File server mount and sync commands work end-to-end
 - [ ] PXE boot loads the installer successfully
+- [ ] All shell scripts pass static analysis (shellcheck)
+- [ ] Provisioning utilities pass unit tests against a mocked file server
+- [ ] End-to-end driver boots the ISO in a VM, verifies provisioning, and tears down
 
 ### Quality Indicators
 
@@ -218,6 +244,7 @@ Not applicable — this is a collection of build tooling and provisioning script
 | ISO builds | Reproducible from committed `iso/` content |
 | Install autonomy | Zero human interactions required |
 | Setup time (bare metal) | < 30 minutes total |
+| Test coverage of critical paths | Verified by automated tests on every change |
 
 ---
 
@@ -230,6 +257,7 @@ Not applicable — this is a collection of build tooling and provisioning script
 | **Path dependencies** — Scripts assume `~/repos/Debtorchy` | Medium | High | Add path detection; document requirement in README |
 | **File server unreachable** — Install fails without NAS access | High | Low | Graceful fallback; cache critical assets locally |
 | **Circular iso/debian symlink** — Tools may infinite-loop when traversing `iso/` | Low | Medium | Document the symlink behaviour; add note in README |
+| **Credential exposure in ISO** — Baked secrets readable by anyone with the installer | Medium | Medium | Document the tradeoff; empty input bakes nothing; homelab-only trust model |
 
 ---
 
@@ -239,5 +267,5 @@ Not applicable — this is a collection of build tooling and provisioning script
 
 - **Offline package cache** — Host a local Debian mirror or cached `.apt` packages on the file server for internet-independent installation
 - **Baked programs** — Include commonly needed `.deb` packages directly in the ISO to reduce post-install downloads
-- **Automated testing** — CI pipeline that builds the ISO and boots it in a VM to validate the full install
-
+- **Automated testing in CI** — Full pipeline CI that builds the ISO and boots it in a VM to validate the entire install (requires a self-hosted runner with KVM)
+- **Fleet deployment** — Reuse the autonomous pipeline to roll out identical machines

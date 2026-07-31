@@ -5,6 +5,7 @@ ca-certificates
 cifs-utils
 coreutils
 curl
+dmenu
 fd-find
 feh
 fonts-font-awesome
