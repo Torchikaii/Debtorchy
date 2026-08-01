@@ -10,7 +10,7 @@ setup_credentials() {
     if [ ! -t 0 ]; then
         echo "WARNING: no TTY, cannot prompt for SMB credentials — continuing without NAS"
         NAS_MOUNTED=false
-        return 1
+        return 0
     fi
     echo "First-time setup: SMB credentials not found."
     read -rp "Username: " username
