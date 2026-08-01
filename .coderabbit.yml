@@ -1,0 +1,21 @@
+reviews:
+  profile: chill
+
+  high_level_summary: false
+
+  auto_review:
+    enabled: false
+
+  instructions: |
+    Review only for:
+      - correctness
+      - security
+      - race conditions
+      - performance regressions
+
+    Ignore:
+      - naming
+      - formatting
+      - style
+      - optional refactoring
+      - documentation suggestions unless incorrect
