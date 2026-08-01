@@ -12,15 +12,37 @@ Use the helper script:
 bash os-provision/commands/build-iso.sh
 ```
 
-This runs `xorriso` to package the `iso/` directory into `debtorchy.iso` at the repo root. The ISO supports both BIOS (isolinux) and UEFI (GRUB) boot.
+This packages the `iso/` directory into `debtorchy.iso` at the repo root. The ISO supports both BIOS (isolinux) and UEFI (GRUB) boot.
 
-**Prerequisites:** `xorriso` must be installed. If it's not, run:
+The build is fully non-interactive if you press Enter on every prompt: it stages a temporary copy of `iso/` (the tracked `iso/` tree is never modified), regenerates the `pool/main` package index and `md5sum.txt`, and runs `xorriso`.
 
-```bash
-sudo apt install xorriso
-```
+**Prerequisites:**
 
-Or let provisioning install it: `bash os-provision/apps/xorriso.sh`
+- `xorriso` — `sudo apt install xorriso`, or `bash os-provision/apps/xorriso.sh`
+- `apt-ftparchive` (from `apt-utils`) — `sudo apt install apt-utils`
+
+### Credential prompts
+
+The build asks for four values. Every prompt falls back to a default when left empty (press Enter / non-interactive builds):
+
+| Prompt | Default |
+|--------|---------|
+| Root password | `admin` |
+| pc password | `admin` |
+| NAS username | none (nothing baked) |
+| NAS password | none (nothing baked) |
+
+Only if both NAS username and password are provided are they baked into the preseed's `late_command`, which writes `~/.smbcredentials-nas2` (chmod 600) into the installed system. Empty NAS input bakes nothing. Credentials are never committed to the repository — they only ever land inside the built `debtorchy.iso`.
+
+> **Security note:** anything baked into the ISO is readable by anyone holding the installer. For a trusted homelab this is acceptable; leave the prompts empty to avoid it.
+
+### Post-install system
+
+The preseed configures the installed system to:
+- Install a minimal set offline from the ISO's own pool: the deselect-everything base plus `sudo` and `cifs-utils` (with `--no-install-recommends`, so `keyutils` is not pulled in)
+- Write Debian's modern deb822 apt sources (`*.sources` in `/etc/apt/sources.list.d/`) pointing at `deb.debian.org` / `security.debian.org` as internet fallback
+- Copy `os-provision/` and `package-manager/` to `/home/pc/repos/Debtorchy/`
+- Enable the `debtorchy-firstboot` systemd service so provisioning auto-runs on first boot
 
 ---
 

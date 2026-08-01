@@ -39,7 +39,17 @@ Boot the ISO via USB or PXE. The preseed configuration handles everything — pa
 
 #### 4. First boot provisioning
 
-The ISO build process bundles `os-provision/` into the ISO, and the preseed configuration copies it to `~/repos/Debtorchy/os-provision/` during install. After the first boot, run the orchestrator:
+The ISO build process bundles `os-provision/` into the ISO, and the preseed configuration copies it to `~/repos/Debtorchy/os-provision/` during install. Provisioning **runs automatically on the first boot** — a systemd `oneshot` service (`debtorchy-firstboot`) runs the orchestrator as root, then disables itself and reboots into the finished system. No manual login or commands are needed.
+
+After the reboot, `pc` (and `root`) log in with the password chosen at build time (default `admin`).
+
+**Troubleshooting:** if first-boot provisioning fails, it is retried on the next boot. Inspect the logs with:
+
+```bash
+journalctl -u debtorchy-firstboot
+```
+
+To run provisioning manually at any time (safe to re-run):
 
 ```bash
 bash ~/repos/Debtorchy/os-provision/main.sh
