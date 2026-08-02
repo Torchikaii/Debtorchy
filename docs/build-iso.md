@@ -35,6 +35,8 @@ The build asks for four values. Every prompt falls back to a default when left e
 Only if both NAS username and password are provided are they baked into the preseed's `late_command`, which writes `~/.smbcredentials-nas2` (chmod 600) into the installed system. Empty NAS input bakes nothing. Credentials are never committed to the repository — they only ever land inside the built `debtorchy.iso`.
 
 > **Security note:** anything baked into the ISO is readable by anyone holding the installer. For a trusted homelab this is acceptable; leave the prompts empty to avoid it.
+>
+> Passwords must be printable ASCII (no newlines, tabs, or non-ASCII) and must not end with a backslash; otherwise the build aborts.
 
 ### Post-install system
 

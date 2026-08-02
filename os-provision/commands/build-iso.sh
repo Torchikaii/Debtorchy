@@ -58,13 +58,25 @@ content = re.sub(r'(d-i passwd/root-password-again password ).*', lambda m: m.gr
 content = re.sub(r'(d-i passwd/user-password password ).*', lambda m: m.group(1) + pc_pass, content)
 content = re.sub(r'(d-i passwd/user-password-again password ).*', lambda m: m.group(1) + pc_pass, content)
 
+def check(name, value, reject_trailing_backslash=False):
+    for ch in value:
+        if not (0x20 <= ord(ch) <= 0x7e):
+            sys.exit(f"Error: {name} contains non-printable or non-ASCII characters; not baking credentials")
+    if reject_trailing_backslash and value.endswith('\\'):
+        sys.exit(f"Error: {name} ends with a backslash, which would corrupt the preseed line continuation; not baking credentials")
+
+check('root password', root_pass, True)
+check('pc password', pc_pass, True)
+check('NAS username', nas_user)
+check('NAS password', nas_pass)
+
 if nas_user and nas_pass:
     creds = (
         "printf 'username=%s\\npassword=%s\\n' "
         + shell_quote_single(nas_user) + " " + shell_quote_single(nas_pass)
         + " > /target/home/pc/.smbcredentials-nas2; "
         + "chown pc:pc /target/home/pc/.smbcredentials-nas2; "
-        + "chmod 600 /target/home/pc/.smbcredentials-nas2; \\"
+        + "chmod 600 /target/home/pc/.smbcredentials-nas2; "
     )
     content = content.replace('@@NAS_CREDS@@', creds)
 else:

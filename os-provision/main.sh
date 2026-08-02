@@ -23,6 +23,7 @@ fi
 
 # core system packages
 bash ./os-provision/apps/ca-certificates.sh
+bash ./os-provision/apps/curl.sh
 bash ./os-provision/apps/gnupg.sh
 
 # audio

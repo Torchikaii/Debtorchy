@@ -14,7 +14,7 @@ if dpkg -s tmux >/dev/null 2>&1; then
 fi
 
 log "Installing tmux"
-sudo apt update >/dev/null 2>&1
+sudo apt update >/dev/null 2>&1 || true
 sudo apt install -y -qq tmux >/dev/null 2>&1
 
 log "tmux.sh completed"
