@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 source "$(dirname "$0")/../commands/logging.sh"
 
 log "docker.sh running"

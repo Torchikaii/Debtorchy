@@ -43,6 +43,8 @@ The ISO build process bundles `os-provision/` into the ISO, and the preseed conf
 
 After the reboot, `pc` (and `root`) log in with the password chosen at build time (default `admin`).
 
+> After a successful install, destroy or securely erase the installer ISO and USB stick — they contain the passwords baked at build time. See [Build ISO](build-iso.md) for details.
+
 **Troubleshooting:** if first-boot provisioning fails, it is retried on the next boot. Inspect the logs with:
 
 ```bash

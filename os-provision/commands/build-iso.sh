@@ -21,6 +21,11 @@ if ! command -v apt-ftparchive >/dev/null 2>&1; then
     exit 1
 fi
 
+if ! command -v python3 >/dev/null 2>&1; then
+    echo "Error: python3 not found. Install python3 first."
+    exit 1
+fi
+
 read -rp "Root password [admin]: " root_pass || true; root_pass="${root_pass:-admin}"
 read -rp "pc password [admin]: " pc_pass || true; pc_pass="${pc_pass:-admin}"
 read -rp "NAS username (empty for none): " nas_user || true

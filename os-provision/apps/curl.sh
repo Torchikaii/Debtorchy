@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 source "$(dirname "$0")/../commands/logging.sh"
 
 log "curl.sh running"
@@ -10,6 +12,6 @@ if dpkg -s curl >/dev/null 2>&1; then
 fi
 
 log "Installing curl"
-sudo apt install -y -qq curl >/dev/null 2>&1
+sudo apt install -y -qq curl
 
 log "curl.sh completed"

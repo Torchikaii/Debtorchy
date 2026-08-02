@@ -20,6 +20,7 @@ The build is fully non-interactive if you press Enter on every prompt: it stages
 
 - `xorriso` — `sudo apt install xorriso`, or `bash os-provision/apps/xorriso.sh`
 - `apt-ftparchive` (from `apt-utils`) — `sudo apt install apt-utils`
+- `python3` — `sudo apt install python3`
 
 ### Credential prompts
 
@@ -37,6 +38,8 @@ Only if both NAS username and password are provided are they baked into the pres
 > **Security note:** anything baked into the ISO is readable by anyone holding the installer. For a trusted homelab this is acceptable; leave the prompts empty to avoid it.
 >
 > Passwords must be printable ASCII (no newlines, tabs, or non-ASCII) and must not end with a backslash; otherwise the build aborts.
+
+> **After installation:** destroy or securely erase the finished `debtorchy.iso` and the USB stick it was written to, since they contain the passwords chosen at build time (the NAS credentials if provided, and the baked root/pc passwords). Overwrite the USB with random data or zeroes before reusing it. If nothing was baked (all prompts empty), the media only carries the default `admin` passwords.
 
 ### Post-install system
 
