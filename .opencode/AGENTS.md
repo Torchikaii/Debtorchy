@@ -3,6 +3,7 @@
 ## Project Overview
 
 - **Project name:** `Debtorchy`
+- **Repository:** `https://github.com/Torchikaii/Debtorchy`
 - **Core purpose:** Monorepo containing a complete Debian operating system (extracted ISO, versioned via git-lfs), post-install provisioning scripts, and documentation. Enables fully autonomous, reproducible OS installation with zero human intervention.
 - **Target users:** Solo developer / power user who wants instant, hands-free recreation of a production-ready Debian workstation.
 
@@ -109,6 +110,7 @@ Debtorchy/
 - **Main entry:** `README.md` — Repository overview
 - **ISO build:** `docs/build-iso.md` — How to rebuild the ISO
 - **Provisioning:** `os-provision/main.sh` — Post-install orchestrator
+- **GitHub:** Investigate issues or PR comments with `gh` CLI (e.g., `gh issue view N`, `gh pr view N`, `gh api`). Never delete comments or create pull requests.
 
 ---
 
