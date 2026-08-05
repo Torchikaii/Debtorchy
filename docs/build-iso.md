@@ -49,6 +49,8 @@ The preseed configures the installed system to:
 - Copy `os-provision/` and `package-manager/` to `/home/pc/repos/Debtorchy/`
 - Enable the `debtorchy-firstboot` systemd service so provisioning auto-runs on first boot
 
+The first-boot service currently hardcodes `testing-main.sh` (git + vim only, for automated E2E testing) via the `Environment=MAIN_SCRIPT=` line in `os-provision/firstboot/debtorchy-firstboot.service`. Change that line to switch back to full provisioning (`main.sh`), then rebuild the ISO.
+
 ---
 
 ### Testing in a VM

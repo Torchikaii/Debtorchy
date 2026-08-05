@@ -1,12 +1,12 @@
 [Unit]
 Description=Debtorchy first-boot provisioning
 After=network-online.target
-Requires=network-online.target
 
 [Service]
 Type=oneshot
 Environment=HOME=/home/pc
 Environment=USER=pc
+Environment=MAIN_SCRIPT=/home/pc/repos/Debtorchy/os-provision/testing-main.sh
 Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ExecStart=/home/pc/repos/Debtorchy/os-provision/firstboot/firstboot.sh
 TimeoutStartSec=infinity

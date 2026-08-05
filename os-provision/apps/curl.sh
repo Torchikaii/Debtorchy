@@ -12,6 +12,7 @@ if dpkg -s curl >/dev/null 2>&1; then
 fi
 
 log "Installing curl"
+sudo apt-get update -qq
 sudo apt install -y -qq curl
 
 log "curl.sh completed"
