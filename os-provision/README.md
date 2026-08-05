@@ -18,6 +18,7 @@ os-provision/
 │   ├── brave.sh          # brave browser (checks NAS cache, falls back to internet)
 │   ├── cifs-utils.sh     # SMB/CIFS mount tools
 │   ├── coreutils.sh      # core GNU utilities
+│   ├── curl.sh           # curl (needed by docker, gh, brave, starship, opencode)
 │   ├── docker.sh         # Docker CE (adds Docker repo, installs from apt)
 │   ├── fd.sh             # fd-find (fast find alternative)
 │   ├── feh.sh            # image viewer (wallpapers)

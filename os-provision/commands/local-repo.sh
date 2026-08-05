@@ -35,7 +35,7 @@ Pin-Priority: 900
 EOF
 
 log "Updating APT package lists"
-sudo apt-get update -qq
+sudo apt-get update -qq || log "apt-get update: some sources failed"
 
 log "Installing non-apt binaries from NAS cache"
 

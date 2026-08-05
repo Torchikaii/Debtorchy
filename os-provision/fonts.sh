@@ -7,6 +7,7 @@ log "fonts.sh running"
 HOME_DIR="/home/pc"
 
 # set up Nerd Font
+mkdir -p "$HOME_DIR/.local/share"
 rm -rf "$HOME_DIR/.local/share/fonts"
 ln -s "$HOME_DIR/repos/Debtorchy/os-provision/assets/fonts" "$HOME_DIR/.local/share/fonts"
 
