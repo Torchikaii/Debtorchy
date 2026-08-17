@@ -49,5 +49,5 @@ sudo virt-install \
 
 echo "VM '$VM_NAME' started"
 echo "VM IP: $VM_IP (DHCP reservation)"
-echo "After installing + provisioning, SSH: ssh root@$VM_IP  (password: admin)"
+echo "After installing + provisioning, SSH: ssh root@$VM_IP  (password: value chosen at ISO build time, default admin)"
 echo "Connect with: virsh console $VM_NAME"
